@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NX Product Selector</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 12px;
+  background: #050505; color: #fff;
+  font-family: Arial, sans-serif; font-size: 12px;
+}
+.container {
+  max-width: 650px; margin: auto;
+  border: 1px solid #333; border-radius: 12px;
+  padding: 14px;
+}
+h2 { font-size: 16px; margin: 0 0 5px; }
+.subtitle { color: #aaa; font-size: 11px; margin-bottom: 18px; }
+.question {
+  padding: 12px 0; border-bottom: 1px solid #222;
+}
+.question strong {
+  display: block; color: #fff;
+  margin-bottom: 8px; font-size: 12px;
+}
+label {
+  display: block; margin: 7px 0;
+  color: #ddd; cursor: pointer;
+}
+input[type="radio"] { accent-color: #ddd; }
+.result-heading {
+  display: flex; justify-content: space-between;
+  align-items: center; margin: 16px 0 10px;
+}
+.count {
+  color: #22d477; background: #092316;
+  padding: 4px 8px; border-radius: 10px;
+  font-size: 10px;
+}
+.product {
+  background: #292929; border-radius: 7px;
+  padding: 12px; margin: 8px 0;
+}
+.product h3 { font-size: 13px; margin: 0 0 6px; }
+.code { color: #22d477; font-weight: bold; }
+.description { color: #ddd; margin-top: 7px; line-height: 1.5; }
+.note { color: #aaa; font-size: 10px; margin-top: 8px; line-height: 1.4; }
+button {
+  width: 100%; padding: 10px; margin-top: 8px;
+  border-radius: 20px; border: 1px solid #444;
+  background: #eee; color: #111; cursor: pointer;
+  font-weight: bold;
+}
+button.reset { background: transparent; color: #ddd; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Customer requirement selection</h2>
+  <div class="subtitle">
+    Select the customer's requirements to get suitable product recommendations.
+  </div>
+
+  <form id="selector">
+    <div class="question">
+      <strong>1. What is the customer's CAD requirement?</strong>
+      <label><input type="radio" name="cad" value="basic" checked> Basic CAD modelling and drafting</label>
+      <label><input type="radio" name="cad" value="advanced"> Advanced product design</label>
+      <label><input type="radio" name="cad" value="premium"> Premium design requirements</label>
+    </div>
+
+    <div class="question">
+      <strong>2. What is the customer's CAM requirement?</strong>
+      <label><input type="radio" name="cam" value="none" checked> No CAM required</label>
+      <label><input type="radio" name="cam" value="2.5"> 2.5-axis milling</label>
+      <label><input type="radio" name="cam" value="3"> 3-axis milling</label>
+      <label><input type="radio" name="cam" value="total"> Total machining</label>
+    </div>
+
+    <div class="question">
+      <strong>3. Does the customer require mold design?</strong>
+      <label><input type="radio" name="mold" value="yes"> Yes</label>
+      <label><input type="radio" name="mold" value="no" checked> No</label>
+    </div>
+
+    <div class="question">
+      <strong>4. Preferred license type</strong>
+      <label><input type="radio" name="license" value="unspecified" checked> Not specified</label>
+      <label><input type="radio" name="license" value="nl"> Node Locked</label>
+      <label><input type="radio" name="license" value="floating"> Floating</label>
+    </div>
+
+    <div class="question">
+      <strong>5. Customer's purchasing priority</strong>
+      <label><input type="radio" name="priority" value="cost" checked> Lowest suitable cost</label>
+      <label><input type="radio" name="priority" value="balanced"> Balanced features and cost</label>
+      <label><input type="radio" name="priority" value="maximum"> Maximum capability</label>
+    </div>
+  </form>
+
+  <div class="result-heading">
+    <strong>Recommended NX products</strong>
+    <span class="count" id="count">1 suggestion</span>
+  </div>
+
+  <div id="results"></div>
+
+  <button type="button" onclick="copyRecommendation()">Copy recommendation</button>
+  <button type="button" class="reset" onclick="resetSelection()">↻ Reset selection</button>
+</div>
+
+<script>
+const products = {
+  basic: {
+    name: "NX Design Standard",
+    codes: "NX91100 / NX91110",
+    description: "For basic CAD requirements. Choose the licensing option after confirming availability."
+  },
+  advanced: {
+    name: "NX Design Advanced",
+    codes: "NX92100",
+    description: "For advanced product design requirements."
+  },
+  premium: {
+    name: "NX Design Premium",
+    codes: "NX93100",
+    description: "For premium design requirements."
+  },
+  cam25: {
+    name: "NX CAD/CAM 2.5 Axis Milling Foundation",
+    codes: "NX12445 / NX12446",
+    description: "For 2.5-axis milling requirements."
+  },
+  cam3: {
+    name: "NX CAD/CAM 3 Axis Milling Foundation",
+    codes: "NX12450 / NX12451",
+    description: "For 3-axis milling requirements."
+  },
+  total: {
+    name: "NX CAD/CAM Total Machining",
+    codes: "NX12490",
+    description: "For total machining requirements."
+  },
+  mold: {
+    name: "NX Design for Mold Design",
+    codes: "NX93200",
+    description: "For customers requiring mold design capabilities."
+  },
+  wizard: {
+    name: "NX Mold Wizard",
+    codes: "NX30200",
+    description: "Mold design tool candidate. Confirm licensing and dependencies."
+  }
+};
+
+function selected(name) {
+  return document.querySelector(`input[name="${name}"]:checked`).value;
+}
+
+function getRecommendations() {
+  const cad = selected("cad");
+  const cam = selected("cam");
+  const mold = selected("mold");
+  const license = selected("license");
+  const priority = selected("priority");
+
+  let items = [products[cad]];
+
+  if (cam === "2.5") items.push(products.cam25);
+  if (cam === "3") items.push(products.cam3);
+  if (cam === "total") items.push(products.total);
+
+  if (mold === "yes") {
+    items.push(products.mold, products.wizard);
+  }
+
+  let priorityText = {
+    cost: "Cost optimized. Compare quotations for the minimum capability that meets the requirement.",
+    balanced: "Balanced selection. Avoid adding capabilities the customer does not require.",
+    maximum: "Capability focused. Confirm that the selected products meet the customer's actual requirements."
+  }[priority];
+
+  let licenseText = "";
+  if (cad === "basic" && license === "nl")
+    licenseText = "CAD license preference: Node Locked (NX91100).";
+  else if (cad === "basic" && license === "floating")
+    licenseText = "CAD license preference: Floating (NX91110).";
+  else if (license !== "unspecified")
+    licenseText = "Confirm availability of the preferred license type for the selected product codes.";
+
+  if (cam !== "none" && license !== "unspecified")
+    licenseText += " CAM license variants and the meaning of (NL) must be confirmed against Siemens entitlement details.";
+
+  return { items, priorityText, licenseText };
+}
+
+function render() {
+  const { items, priorityText, licenseText } = getRecommendations();
+  document.getElementById("count").textContent =
+    items.length + (items.length === 1 ? " suggestion" : " suggestions");
+
+  document.getElementById("results").innerHTML =
+    items.map(p => `
+      <div class="product">
+        <h3>${p.name}</h3>
+        <div class="code">${p.codes}</div>
+        <div class="description">${p.description}</div>
+      </div>
+    `).join("") +
+    `<div class="note">${licenseText ? licenseText + "<br><br>" : ""}
+      Purchasing priority: ${priorityText}
+      <br><br>Confirm final SKU entitlements and dependencies with Siemens before quotation.
+    </div>`;
+}
+
+function copyRecommendation() {
+  const { items, priorityText, licenseText } = getRecommendations();
+  const text = items.map(p =>
+    `${p.name}\n${p.codes}\n${p.description}`
+  ).join("\n\n") +
+  `\n\n${licenseText}\nPurchasing priority: ${priorityText}`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Recommendation copied.");
+  });
+}
+
+function resetSelection() {
+  document.getElementById("selector").reset();
+  render();
+}
+
+document.getElementById("selector").addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
