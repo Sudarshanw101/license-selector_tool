@@ -4,101 +4,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NX Product Selector</title>
+<title>BINTECH | NX Product Selector</title>
+
 <style>
 * { box-sizing: border-box; }
+
 body {
-  margin: 0; padding: 12px;
-  background: #050505; color: #fff;
-  font-family: Arial, sans-serif; font-size: 12px;
+  margin: 0;
+  padding: 20px 12px;
+  background: #101722;
+  color: #f4f6fa;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
 }
+
 .container {
-  max-width: 650px; margin: auto;
-  border: 1px solid #333; border-radius: 12px;
-  padding: 14px;
+  max-width: 680px;
+  margin: auto;
+  background: #182333;
+  border: 1px solid #34445a;
+  border-radius: 14px;
+  padding: 20px;
 }
-h2 { font-size: 16px; margin: 0 0 5px; }
-.subtitle { color: #aaa; font-size: 11px; margin-bottom: 18px; }
-.question {
-  padding: 12px 0; border-bottom: 1px solid #222;
-}
-.question strong {
-  display: block; color: #fff;
-  margin-bottom: 8px; font-size: 12px;
-}
-label {
-  display: block; margin: 7px 0;
-  color: #ddd; cursor: pointer;
-}
-input[type="radio"] { accent-color: #ddd; }
-.result-heading {
-  display: flex; justify-content: space-between;
-  align-items: center; margin: 16px 0 10px;
-}
-.count {
-  color: #22d477; background: #092316;
-  padding: 4px 8px; border-radius: 10px;
-  font-size: 10px;
-}
-.product {
-  background: #292929; border-radius: 7px;
-  padding: 12px; margin: 8px 0;
-}
-.product h3 { font-size: 13px; margin: 0 0 6px; }
-.code { color: #22d477; font-weight: bold; }
-.description { color: #ddd; margin-top: 7px; line-height: 1.5; }
-.note { color: #aaa; font-size: 10px; margin-top: 8px; line-height: 1.4; }
-button {
-  width: 100%; padding: 10px; margin-top: 8px;
-  border-radius: 20px; border: 1px solid #444;
-  background: #eee; color: #111; cursor: pointer;
+
+.brand {
+  color: #42d6c5;
+  font-size: 13px;
   font-weight: bold;
+  letter-spacing: 2px;
 }
-button.reset { background: transparent; color: #ddd; }
+
+h1 {
+  font-size: 23px;
+  margin: 8px 0;
+}
+
+.subtitle {
+  color: #aab7c8;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.question {
+  padding: 14px 0;
+  border-bottom: 1px solid #34445a;
+}
+
+.question strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+label {
+  display: block;
+  padding: 5px 0;
+  color: #dce4ef;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #42d6c5;
+  margin-right: 7px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin: 20px 0 10px;
+  font-size: 15px;
+}
+
+.result-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 12px;
+}
+
+.count {
+  background: #123c35;
+  color: #5ce4bb;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+.product {
+  background: #223248;
+  border: 1px solid #40536b;
+  border-radius: 9px;
+  padding: 13px;
+  margin-bottom: 10px;
+}
+
+.product h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.code {
+  color: #55e0bb;
+  font-weight: bold;
+  font-size: 17px;
+  margin: 5px 0;
+}
+
+.description {
+  color: #d5dfeb;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+
+.tag {
+  display: inline-block;
+  color: #8fe9d4;
+  background: #174238;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.warning {
+  background: #42351e;
+  border: 1px solid #8b713c;
+  color: #f8dca0;
+  padding: 11px;
+  border-radius: 7px;
+  margin: 10px 0;
+  line-height: 1.5;
+  font-size: 11px;
+}
+
+.note {
+  background: #202c3c;
+  padding: 12px;
+  border-radius: 8px;
+  color: #c3d0df;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 9px;
+  border: none;
+  border-radius: 22px;
+  background: #42d6c5;
+  color: #10212b;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.reset {
+  background: transparent;
+  border: 1px solid #53657b;
+  color: #e2e9f1;
+}
+
+.footer {
+  text-align: center;
+  color: #8293a8;
+  font-size: 10px;
+  margin-top: 20px;
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
-  <h2>Customer requirement selection</h2>
+
+  <div class="brand">BINTECH ENGINEERING</div>
+  <h1>NX Product Selector</h1>
   <div class="subtitle">
-    Select the customer's requirements to get suitable product recommendations.
+    Customer Requirement Selection | NX 2606
   </div>
 
   <form id="selector">
+
     <div class="question">
       <strong>1. What is the customer's CAD requirement?</strong>
-      <label><input type="radio" name="cad" value="basic" checked> Basic CAD modelling and drafting</label>
-      <label><input type="radio" name="cad" value="advanced"> Advanced product design</label>
-      <label><input type="radio" name="cad" value="premium"> Premium design requirements</label>
+
+      <label><input type="radio" name="cad" value="basic" checked>
+        Basic CAD modelling and drafting</label>
+
+      <label><input type="radio" name="cad" value="advanced">
+        Advanced product design</label>
+
+      <label><input type="radio" name="cad" value="premium">
+        Premium design requirements</label>
     </div>
 
     <div class="question">
       <strong>2. What is the customer's CAM requirement?</strong>
-      <label><input type="radio" name="cam" value="none" checked> No CAM required</label>
-      <label><input type="radio" name="cam" value="2.5"> 2.5-axis milling</label>
-      <label><input type="radio" name="cam" value="3"> 3-axis milling</label>
-      <label><input type="radio" name="cam" value="total"> Total machining</label>
+
+      <label><input type="radio" name="cam" value="none" checked>
+        No CAM required</label>
+
+      <label><input type="radio" name="cam" value="2.5">
+        2.5-axis milling</label>
+
+      <label><input type="radio" name="cam" value="3">
+        3-axis milling</label>
+
+      <label><input type="radio" name="cam" value="total">
+        Total machining</label>
     </div>
 
     <div class="question">
       <strong>3. Does the customer require mold design?</strong>
-      <label><input type="radio" name="mold" value="yes"> Yes</label>
-      <label><input type="radio" name="mold" value="no" checked> No</label>
+
+      <label><input type="radio" name="mold" value="yes">
+        Yes</label>
+
+      <label><input type="radio" name="mold" value="no" checked>
+        No</label>
     </div>
 
     <div class="question">
       <strong>4. Preferred license type</strong>
-      <label><input type="radio" name="license" value="unspecified" checked> Not specified</label>
-      <label><input type="radio" name="license" value="nl"> Node Locked</label>
-      <label><input type="radio" name="license" value="floating"> Floating</label>
+
+      <label><input type="radio" name="license" value="unspecified" checked>
+        Not specified</label>
+
+      <label><input type="radio" name="license" value="nl">
+        Node Locked</label>
+
+      <label><input type="radio" name="license" value="floating">
+        Floating</label>
     </div>
 
     <div class="question">
       <strong>5. Customer's purchasing priority</strong>
-      <label><input type="radio" name="priority" value="cost" checked> Lowest suitable cost</label>
-      <label><input type="radio" name="priority" value="balanced"> Balanced features and cost</label>
-      <label><input type="radio" name="priority" value="maximum"> Maximum capability</label>
+
+      <label><input type="radio" name="priority" value="cost" checked>
+        Lowest suitable cost</label>
+
+      <label><input type="radio" name="priority" value="balanced">
+        Balanced features and cost</label>
+
+      <label><input type="radio" name="priority" value="maximum">
+        Maximum capability</label>
     </div>
+
+    <div class="question">
+      <strong>6. What Postprocessor functionality does the customer require?</strong>
+
+      <label><input type="radio" name="post" value="none" checked>
+        No additional Postprocessor requirement</label>
+
+      <label><input type="radio" name="post" value="standard">
+        Standard Postprocessor / Post Builder</label>
+
+      <label><input type="radio" name="post" value="advanced">
+        Advanced Post Configurator</label>
+
+      <label><input type="radio" name="post" value="full">
+        Full Post Configurator</label>
+    </div>
+
+    <div class="question">
+      <strong>7. Does the customer specifically require Mold Wizard?</strong>
+
+      <label><input type="radio" name="wizard" value="yes">
+        Yes</label>
+
+      <label><input type="radio" name="wizard" value="no" checked>
+        No</label>
+    </div>
+
   </form>
 
   <div class="result-heading">
@@ -108,133 +285,504 @@ button.reset { background: transparent; color: #ddd; }
 
   <div id="results"></div>
 
-  <button type="button" onclick="copyRecommendation()">Copy recommendation</button>
-  <button type="button" class="reset" onclick="resetSelection()">↻ Reset selection</button>
+  <button type="button" onclick="copyRecommendation()">
+    Copy Recommendation
+  </button>
+
+  <button type="button" class="reset" onclick="resetSelection()">
+    ↻ Reset Selection
+  </button>
+
+  <div class="footer">
+    BINTECH ENGINEERING | NX PRODUCT SELECTION ASSISTANT
+  </div>
+
 </div>
 
 <script>
+
+// =====================================
+// PRODUCT DATABASE
+// =====================================
+
 const products = {
-  basic: {
-    name: "NX Design Standard",
-    codes: "NX91100 / NX91110",
-    description: "For basic CAD requirements. Choose the licensing option after confirming availability."
+  standardNL: {
+    name: "NX Design Standard – Node Locked",
+    code: "NX91100",
+    description: "For basic CAD modelling and drafting."
   },
+
+  standardFL: {
+    name: "NX Design Standard – Floating",
+    code: "NX91110",
+    description: "For basic CAD modelling and drafting."
+  },
+
   advanced: {
     name: "NX Design Advanced",
-    codes: "NX92100",
+    code: "NX92100",
     description: "For advanced product design requirements."
   },
+
   premium: {
     name: "NX Design Premium",
-    codes: "NX93100",
+    code: "NX93100",
     description: "For premium design requirements."
   },
+
   cam25: {
     name: "NX CAD/CAM 2.5 Axis Milling Foundation",
-    codes: "NX12445 / NX12446",
-    description: "For 2.5-axis milling requirements."
+    code: "NX12445",
+    description: "Integrated CAD/CAM package. The supplied package matrix lists solid modelling, drafting, assemblies and basic freeform modelling."
   },
+
+  cam25NL: {
+    name: "NX CAD/CAM 2.5 Axis Milling Foundation (NL)",
+    code: "NX12446",
+    description: "Node Locked integrated CAD/CAM package with the listed core modelling and 2.5-axis milling capabilities."
+  },
+
   cam3: {
     name: "NX CAD/CAM 3 Axis Milling Foundation",
-    codes: "NX12450 / NX12451",
-    description: "For 3-axis milling requirements."
+    code: "NX12450",
+    description: "Integrated CAD/CAM package with the listed core modelling capabilities and Freeform Modeling Advanced."
   },
+
+  cam3NL: {
+    name: "NX CAD/CAM 3 Axis Milling Foundation (NL)",
+    code: "NX12451",
+    description: "Node Locked integrated CAD/CAM package with 3-axis milling and the listed modelling capabilities."
+  },
+
   total: {
     name: "NX CAD/CAM Total Machining",
-    codes: "NX12490",
-    description: "For total machining requirements."
+    code: "NX12490",
+    description: "Integrated CAD/CAM package for total machining requirements."
   },
+
   mold: {
     name: "NX Design for Mold Design",
-    codes: "NX93200",
-    description: "For customers requiring mold design capabilities."
+    code: "NX93200",
+    description: "Specialized product for mold design requirements."
   },
+
   wizard: {
     name: "NX Mold Wizard",
-    codes: "NX30200",
-    description: "Mold design tool candidate. Confirm licensing and dependencies."
+    code: "NX30200",
+    description: "Dedicated Mold Wizard product entry from the supplied product list. Verify entitlement overlap with NX93200."
   }
 };
 
+
+// =====================================
+// PACKAGE COMMAND COMPARISON
+// Based on the supplied NX 2512 workbook
+// =====================================
+
+const packageFeatures = {
+
+  "NX12445": [
+    "Solid Modeling",
+    "Feature Modeling",
+    "Synchronous Technology",
+    "Drafting",
+    "Assemblies",
+    "Freeform Modeling Basic",
+    "NX Sheet Metal",
+    "CAM Base",
+    "Post Processor",
+    "Post Kinematics",
+    "Post Builder",
+    "Post Configurator Advanced"
+  ],
+
+  "NX12446": [
+    "Solid Modeling",
+    "Feature Modeling",
+    "Synchronous Technology",
+    "Drafting",
+    "Assemblies",
+    "Freeform Modeling Basic",
+    "NX Sheet Metal",
+    "CAM Base",
+    "Post Processor",
+    "Post Kinematics",
+    "Post Builder",
+    "Post Configurator Advanced"
+  ],
+
+  "NX12450": [
+    "Solid Modeling",
+    "Feature Modeling",
+    "Synchronous Technology",
+    "Drafting",
+    "Assemblies",
+    "Freeform Modeling Basic",
+    "Freeform Modeling Advanced",
+    "NX Sheet Metal",
+    "CAM Base",
+    "Post Processor",
+    "Post Kinematics",
+    "Post Builder",
+    "Post Configurator Advanced"
+  ],
+
+  "NX12451": [
+    "Solid Modeling",
+    "Feature Modeling",
+    "Synchronous Technology",
+    "Drafting",
+    "Assemblies",
+    "Freeform Modeling Basic",
+    "Freeform Modeling Advanced",
+    "NX Sheet Metal",
+    "CAM Base",
+    "Post Processor",
+    "Post Kinematics",
+    "Post Builder",
+    "Post Configurator Advanced"
+  ],
+
+  "NX12490": [
+    "Solid Modeling",
+    "Feature Modeling",
+    "Synchronous Technology",
+    "Drafting",
+    "Assemblies",
+    "Freeform Modeling Basic",
+    "Freeform Modeling Advanced",
+    "NX Sheet Metal",
+    "CAM Base",
+    "Post Processor",
+    "Post Kinematics",
+    "Post Builder",
+    "Post Configurator Advanced"
+  ]
+};
+
+
+// =====================================
+// SELECTION FUNCTIONS
+// =====================================
+
 function selected(name) {
-  return document.querySelector(`input[name="${name}"]:checked`).value;
+  return document.querySelector(
+    `input[name="${name}"]:checked`
+  ).value;
 }
 
-function getRecommendations() {
+function addProduct(list, product) {
+  if (!list.some(p => p.code === product.code)) {
+    list.push(product);
+  }
+}
+
+function render() {
+
   const cad = selected("cad");
   const cam = selected("cam");
   const mold = selected("mold");
   const license = selected("license");
   const priority = selected("priority");
+  const post = selected("post");
+  const wizard = selected("wizard");
 
-  let items = [products[cad]];
+  let recommendations = [];
+  let warnings = [];
 
-  if (cam === "2.5") items.push(products.cam25);
-  if (cam === "3") items.push(products.cam3);
-  if (cam === "total") items.push(products.total);
+  let selectedCAMPackage = null;
 
-  if (mold === "yes") {
-    items.push(products.mold, products.wizard);
+  // -----------------------------------
+  // 1. SELECT CAM PACKAGE FIRST
+  // -----------------------------------
+
+  if (cam === "2.5") {
+
+    selectedCAMPackage =
+      license === "nl"
+        ? "NX12446"
+        : "NX12445";
+
+    addProduct(
+      recommendations,
+      license === "nl" ? products.cam25NL : products.cam25
+    );
   }
 
-  let priorityText = {
-    cost: "Cost optimized. Compare quotations for the minimum capability that meets the requirement.",
-    balanced: "Balanced selection. Avoid adding capabilities the customer does not require.",
-    maximum: "Capability focused. Confirm that the selected products meet the customer's actual requirements."
-  }[priority];
+  if (cam === "3") {
 
-  let licenseText = "";
-  if (cad === "basic" && license === "nl")
-    licenseText = "CAD license preference: Node Locked (NX91100).";
-  else if (cad === "basic" && license === "floating")
-    licenseText = "CAD license preference: Floating (NX91110).";
-  else if (license !== "unspecified")
-    licenseText = "Confirm availability of the preferred license type for the selected product codes.";
+    selectedCAMPackage =
+      license === "nl"
+        ? "NX12451"
+        : "NX12450";
 
-  if (cam !== "none" && license !== "unspecified")
-    licenseText += " CAM license variants and the meaning of (NL) must be confirmed against Siemens entitlement details.";
+    addProduct(
+      recommendations,
+      license === "nl" ? products.cam3NL : products.cam3
+    );
+  }
 
-  return { items, priorityText, licenseText };
-}
+  if (cam === "total") {
 
-function render() {
-  const { items, priorityText, licenseText } = getRecommendations();
+    selectedCAMPackage = "NX12490";
+    addProduct(recommendations, products.total);
+  }
+
+  // -----------------------------------
+  // 2. CHECK CAD COMMAND COVERAGE
+  // -----------------------------------
+
+  if (cam === "none") {
+
+    if (cad === "basic") {
+
+      if (license === "nl") {
+        addProduct(recommendations, products.standardNL);
+      }
+      else if (license === "floating") {
+        addProduct(recommendations, products.standardFL);
+      }
+      else {
+        addProduct(recommendations, {
+          ...products.standardNL,
+          code: "NX91100 / NX91110"
+        });
+      }
+    }
+
+    if (cad === "advanced") {
+      addProduct(recommendations, products.advanced);
+    }
+
+    if (cad === "premium") {
+      addProduct(recommendations, products.premium);
+    }
+
+  } else {
+
+    const included = packageFeatures[selectedCAMPackage] || [];
+
+    const basicCommands = [
+      "Solid Modeling",
+      "Feature Modeling",
+      "Synchronous Technology",
+      "Drafting",
+      "Assemblies",
+      "Freeform Modeling Basic",
+      "NX Sheet Metal"
+    ];
+
+    const basicCovered = basicCommands.every(
+      command => included.includes(command)
+    );
+
+    // A CAM package can replace a separate Standard CAD
+    // recommendation when all listed core commands are covered.
+
+    if (!basicCovered) {
+      warnings.push(
+        "The selected CAM package does not confirm all required core CAD commands. Verify an additional CAD license."
+      );
+    }
+
+    if (cad === "advanced" && !included.includes("Freeform Modeling Advanced")) {
+      addProduct(recommendations, products.advanced);
+
+      warnings.push(
+        "Advanced CAD features extend beyond the common modelling commands. NX Design Advanced requires a separate entitlement check."
+      );
+    }
+
+    if (cad === "premium") {
+      addProduct(recommendations, products.premium);
+
+      warnings.push(
+        "The integrated CAM package does not establish coverage of all NX Design Premium features. Check the premium CAD entitlement before quotation."
+      );
+    }
+  }
+
+  // -----------------------------------
+  // 3. MOLD DESIGN
+  // -----------------------------------
+
+  if (mold === "yes") {
+    addProduct(recommendations, products.mold);
+  }
+
+  // -----------------------------------
+  // 4. POSTPROCESSOR CHECK
+  // -----------------------------------
+
+  if (post !== "none") {
+
+    if (!selectedCAMPackage) {
+
+      warnings.push(
+        "A Postprocessor requirement was selected, but no CAM package was selected. Evaluate the required CAM package before recommending Postprocessor functionality."
+      );
+
+    } else {
+
+      const included = packageFeatures[selectedCAMPackage];
+
+      if (post === "standard") {
+
+        if (
+          included.includes("Post Processor") &&
+          included.includes("Post Builder")
+        ) {
+          warnings.push(
+            "Standard Post Processor, Post Kinematics and Post Builder are listed as included in the selected CAM package. No duplicate Postprocessor product is recommended."
+          );
+        }
+
+      }
+
+      if (post === "advanced") {
+
+        if (included.includes("Post Configurator Advanced")) {
+          warnings.push(
+            "Post Configurator – Advanced (nx_post_config_adv) is listed as included in the selected CAM package. No separate product is recommended."
+          );
+        }
+
+      }
+
+      if (post === "full") {
+
+        warnings.push(
+          "The workbook lists NX CAM Post Configurator Full (nx_post_config_full) under a separate package heading. Its standalone product code and entitlement must be confirmed with Siemens. It is not automatically included in this recommendation."
+        );
+
+      }
+    }
+  }
+
+  // -----------------------------------
+  // 5. MOLD WIZARD
+  // -----------------------------------
+
+  if (wizard === "yes") {
+
+    addProduct(recommendations, products.wizard);
+
+    warnings.push(
+      "The workbook identifies the Mold Wizard command (ug_mold_design) under NX Design for Mold Design NX93200. Verify whether NX30200 is a separate required entitlement or whether NX93200 already provides the required functionality. Avoid duplicate licensing."
+    );
+  }
+
+  // -----------------------------------
+  // 6. PURCHASING PRIORITY
+  // -----------------------------------
+
+  const priorities = {
+    cost:
+      "Lowest suitable cost. Prefer a single integrated package when it covers all required commands. Compare commercial quotations before final selection.",
+
+    balanced:
+      "Balanced features and cost. Select the package that satisfies the customer's actual workflow without unnecessary additional licenses.",
+
+    maximum:
+      "Maximum capability. Evaluate higher-level CAD and CAM functionality, while verifying the actual command entitlements."
+  };
+
+  // -----------------------------------
+  // 7. DISPLAY RESULTS
+  // -----------------------------------
+
+  const result = document.getElementById("results");
+
   document.getElementById("count").textContent =
-    items.length + (items.length === 1 ? " suggestion" : " suggestions");
+    recommendations.length +
+    (recommendations.length === 1
+      ? " suggestion"
+      : " suggestions");
 
-  document.getElementById("results").innerHTML =
-    items.map(p => `
+  result.innerHTML = "";
+
+  if (recommendations.length === 0) {
+    result.innerHTML =
+      '<div class="warning">No product recommendation could be generated. Please review the selected requirements.</div>';
+  }
+
+  recommendations.forEach(product => {
+
+    result.innerHTML += `
       <div class="product">
-        <h3>${p.name}</h3>
-        <div class="code">${p.codes}</div>
-        <div class="description">${p.description}</div>
+        <span class="tag">RECOMMENDED PRODUCT</span>
+        <h3>${product.name}</h3>
+        <div class="code">${product.code}</div>
+        <div class="description">${product.description}</div>
       </div>
-    `).join("") +
-    `<div class="note">${licenseText ? licenseText + "<br><br>" : ""}
-      Purchasing priority: ${priorityText}
-      <br><br>Confirm final SKU entitlements and dependencies with Siemens before quotation.
-    </div>`;
+    `;
+
+  });
+
+  warnings.forEach(warning => {
+    result.innerHTML += `
+      <div class="warning">
+        <strong>Verification:</strong><br>
+        ${warning}
+      </div>
+    `;
+  });
+
+  result.innerHTML += `
+    <div class="note">
+      <strong>Purchasing priority:</strong><br>
+      ${priorities[priority]}
+      <br><br>
+      <strong>License preference:</strong>
+      ${license === "nl" ? "Node Locked" :
+        license === "floating" ? "Floating" : "Not specified"}
+      <br><br>
+      Final product selection is subject to confirmation of Siemens license entitlements, package dependencies and availability.
+    </div>
+  `;
+
 }
+
+
+// =====================================
+// COPY RECOMMENDATION
+// =====================================
 
 function copyRecommendation() {
-  const { items, priorityText, licenseText } = getRecommendations();
-  const text = items.map(p =>
-    `${p.name}\n${p.codes}\n${p.description}`
-  ).join("\n\n") +
-  `\n\n${licenseText}\nPurchasing priority: ${priorityText}`;
 
-  navigator.clipboard.writeText(text).then(() => {
-    alert("Recommendation copied.");
+  const text = document.getElementById("results").innerText;
+
+  navigator.clipboard.writeText(
+    "BINTECH – NX PRODUCT RECOMMENDATION\n\n" + text
+  ).then(() => {
+    alert("Recommendation copied successfully.");
+  }).catch(() => {
+    alert("Copy was not available. Please select and copy the result manually.");
   });
+
 }
+
+
+// =====================================
+// RESET SELECTION
+// =====================================
 
 function resetSelection() {
   document.getElementById("selector").reset();
   render();
 }
 
-document.getElementById("selector").addEventListener("change", render);
+
+// =====================================
+// AUTOMATIC UPDATE
+// =====================================
+
+document.getElementById("selector")
+  .addEventListener("change", render);
+
 render();
+
 </script>
+
 </body>
 </html>
