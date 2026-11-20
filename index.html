@@ -1,12 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BINTECH | NX Product Selector</title>
-
-<style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BINTECH | NX Product Selector</title><style>
 * { box-sizing: border-box; }
 
 body {
@@ -63,7 +55,7 @@ label {
   cursor: pointer;
 }
 
-input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
   accent-color: #42d6c5;
   margin-right: 7px;
 }
@@ -164,547 +156,85 @@ button.reset {
   font-size: 10px;
   margin-top: 20px;
 }
-</style>
-</head>
 
-<body>
-
-<div class="container">
-
-  <div class="brand">BINTECH ENGINEERING</div>
-  <h1>NX Product Selector</h1>
-  <div class="subtitle">
-    Customer Requirement Selection | NX 2606
-  </div>
-
-  <form id="selector">
-
-    <div class="question">
-      <strong>1. What is the customer's CAD requirement?</strong>
-      <label><input type="radio" name="cad" value="basic" checked>
-        Basic CAD modelling and drafting</label>
-      <label><input type="radio" name="cad" value="advanced">
-        Advanced product design</label>
-      <label><input type="radio" name="cad" value="premium">
-        Premium design requirements</label>
-    </div>
-
-    <div class="question">
-      <strong>2. What is the customer's CAM requirement?</strong>
-      <label><input type="radio" name="cam" value="none" checked>
-        No CAM required</label>
-      <label><input type="radio" name="cam" value="2.5">
-        2.5-axis milling</label>
-      <label><input type="radio" name="cam" value="3">
-        3-axis milling</label>
-      <label><input type="radio" name="cam" value="total">
-        Total machining</label>
-    </div>
-
-    <div class="question">
-      <strong>3. Does the customer require mold design?</strong>
-      <label><input type="radio" name="mold" value="yes">
-        Yes</label>
-      <label><input type="radio" name="mold" value="no" checked>
-        No</label>
-    </div>
-
-    <div class="question">
-      <strong>4. Preferred license type</strong>
-      <label><input type="radio" name="license" value="unspecified" checked>
-        Not specified</label>
-      <label><input type="radio" name="license" value="nl">
-        Node Locked</label>
-      <label><input type="radio" name="license" value="floating">
-        Floating</label>
-    </div>
-
-    <div class="question">
-      <strong>5. What Postprocessor functionality does the customer require?</strong>
-      <label><input type="radio" name="post" value="none" checked>
-        No additional Postprocessor requirement</label>
-      <label><input type="radio" name="post" value="standard">
-        Standard Postprocessor / Post Builder</label>
-      <label><input type="radio" name="post" value="advanced">
-        Advanced Post Configurator</label>
-      <label><input type="radio" name="post" value="full">
-        Full Post Configurator</label>
-    </div>
-
-    <div class="question">
-      <strong>6. Does the customer specifically require Mold Wizard?</strong>
-      <label><input type="radio" name="wizard" value="yes">
-        Yes</label>
-      <label><input type="radio" name="wizard" value="no" checked>
-        No</label>
-    </div>
-
-  </form>
-
-  <div class="result-heading">
-    <strong>Recommended NX products</strong>
-    <span class="count" id="count">1 suggestion</span>
-  </div>
-
-  <div id="results"></div>
-
-  <button type="button" onclick="copyRecommendation()">
-    Copy Recommendation
-  </button>
-
-  <button type="button" class="reset" onclick="resetSelection()">
-    ↻ Reset Selection
-  </button>
-
-  <div class="footer">
-    BINTECH ENGINEERING | NX PRODUCT SELECTION ASSISTANT
-  </div>
-
-</div>
-
-<script>
-
-// PRODUCT DATABASE
-
-const products = {
-  standardNL: {
-    name: "NX Design Standard – Node Locked",
-    code: "NX91100",
-    description: "For basic CAD modelling and drafting."
-  },
-
-  standardFL: {
-    name: "NX Design Standard – Floating",
-    code: "NX91110",
-    description: "For basic CAD modelling and drafting."
-  },
-
-  advanced: {
-    name: "NX Design Advanced",
-    code: "NX92100",
-    description: "For advanced product design requirements."
-  },
-
-  premium: {
-    name: "NX Design Premium",
-    code: "NX93100",
-    description: "For premium design requirements."
-  },
-
-  cam25: {
-    name: "NX CAD/CAM 2.5 Axis Milling Foundation",
-    code: "NX12445",
-    description: "Integrated CAD/CAM package with listed core modelling and 2.5-axis milling capabilities."
-  },
-
-  cam25NL: {
-    name: "NX CAD/CAM 2.5 Axis Milling Foundation (NL)",
-    code: "NX12446",
-    description: "Node Locked integrated CAD/CAM package with core modelling and 2.5-axis milling capabilities."
-  },
-
-  cam3: {
-    name: "NX CAD/CAM 3 Axis Milling Foundation",
-    code: "NX12450",
-    description: "Integrated CAD/CAM package with core modelling capabilities and Freeform Modeling Advanced."
-  },
-
-  cam3NL: {
-    name: "NX CAD/CAM 3 Axis Milling Foundation (NL)",
-    code: "NX12451",
-    description: "Node Locked integrated CAD/CAM package with 3-axis milling capabilities."
-  },
-
-  total: {
-    name: "NX CAD/CAM Total Machining",
-    code: "NX12490",
-    description: "Integrated CAD/CAM package for total machining requirements."
-  },
-
-  mold: {
-    name: "NX Design for Mold Design",
-    code: "NX93200",
-    description: "Specialized product for mold design requirements."
-  },
-
-  wizard: {
-    name: "NX Mold Wizard",
-    code: "NX30200",
-    description: "Dedicated Mold Wizard product entry. Verify entitlement overlap with NX93200."
+.question .options {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px}
+.question label {display:flex;align-items:flex-start;gap:4px;line-height:1.45}
+.question input {margin-top:2px;flex-shrink:0}
+.question .hint {font-size:11px;color:#9eafc2;margin:0 0 9px;line-height:1.5}
+.coverage {color:#8fe9d4;font-size:11px;margin:7px 0}
+.feature-row {padding:7px 0;border-top:1px solid #34445a;line-height:1.5;font-size:11px}
+.feature-row:first-child {border-top:0}
+.gap {color:#f8dca0}
+@media(max-width:480px){.question .options{grid-template-columns:1fr}}
+</style></head><body><div class="container"><div class="brand">BINTECH ENGINEERING</div><h1>NX Product Selector</h1><div class="subtitle">Customer Requirement Selection | NX 2606</div><form id="selector"><div class="question"><strong>1. Core CAD requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="0:0"> Modeling</label><label><input type="checkbox" data-key="0:1"> Drafting</label><label><input type="checkbox" data-key="0:2"> Assemblies</label><label><input type="checkbox" data-key="0:3"> Advanced Assemblies</label><label><input type="checkbox" data-key="0:4"> Advanced Freeform Design</label></div></div><div class="question"><strong>2. Specialized Design requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="1:0"> Sheet Metal</label><label><input type="checkbox" data-key="1:1"> Mold Design / Mold Wizard</label><label><input type="checkbox" data-key="1:2"> Progressive Die</label><label><input type="checkbox" data-key="1:3"> Piping & Tubing</label><label><input type="checkbox" data-key="1:4"> Cabling</label><label><input type="checkbox" data-key="1:5"> Wire Harness</label><label><input type="checkbox" data-key="1:6"> HVAC</label><label><input type="checkbox" data-key="1:7"> Flexible PCB</label><label><input type="checkbox" data-key="1:8"> Weld Assistant</label></div></div><div class="question"><strong>3. Milling requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="2:0"> 2.5-axis Milling</label><label><input type="checkbox" data-key="2:1"> 3-axis Fixed-axis Surface Milling</label><label><input type="checkbox" data-key="2:2"> 4-axis Rotary Machining</label><label><input type="checkbox" data-key="2:3"> 5-axis Variable-axis Surface Milling</label><label><input type="checkbox" data-key="2:4"> Rotary Floor Finish</label><label><input type="checkbox" data-key="2:5"> Multi-axis Blade Machining</label><label><input type="checkbox" data-key="2:6"> 5-axis Deburring</label></div></div><div class="question"><strong>4. Turning requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="3:0"> Turning</label><label><input type="checkbox" data-key="3:1"> Mill-Turn</label><label><input type="checkbox" data-key="3:2"> Prime Turning</label></div></div><div class="question"><strong>5. Specialized Manufacturing requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="4:0"> Wire EDM Advanced</label><label><input type="checkbox" data-key="4:1"> Additive — Powder Bed Basic</label><label><input type="checkbox" data-key="4:2"> Additive — Powder Bed Advanced</label><label><input type="checkbox" data-key="4:3"> Robotics Programming</label></div></div><div class="question"><strong>6. Inspection & Simulation requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="5:0"> CMM Inspection Programming</label><label><input type="checkbox" data-key="5:1"> CMM Inspection Execution</label><label><input type="checkbox" data-key="5:2"> CAM Probing Operations</label><label><input type="checkbox" data-key="5:3"> On-machine Probing Author</label><label><input type="checkbox" data-key="5:4"> On-machine Probing Execution</label><label><input type="checkbox" data-key="5:5"> NC Simulation</label></div></div><div class="question"><strong>7. Manufacturing Utilities requirements (select all that apply)</strong><div class="options"><label><input type="checkbox" data-key="6:0"> Standard Post Processor</label><label><input type="checkbox" data-key="6:1"> Post Builder</label><label><input type="checkbox" data-key="6:2"> Post Configurator — Advanced</label><label><input type="checkbox" data-key="6:3"> Post Configurator — Full</label><label><input type="checkbox" data-key="6:4"> NC Data Management</label></div></div><div class="question"><strong>8. Preferred license type</strong><label><input type="radio" name="license" value="Not specified" checked> Not specified</label><label><input type="radio" name="license" value="Node Locked"> Node Locked</label><label><input type="radio" name="license" value="Floating"> Floating</label></div></form><div class="result-heading"><strong>Recommended NX products</strong><span class="count" id="count">0 suggestions</span></div><div id="results"></div><button type="button" onclick="copyRecommendation()">Copy Recommendation</button><button type="button" class="reset" onclick="resetSelection()">↻ Reset Selection</button><div class="footer">BINTECH ENGINEERING | NX PRODUCT SELECTION ASSISTANT</div></div><script>
+const DATA={"products":{"NX41000":{"name":"NX Mach Advantage NL (addons LIMITED!)","domain":"CAD","license":"Not explicitly stated"},"NX10101":{"name":"NX Mach Designer (NL)","domain":"CAD","license":"Node Locked"},"NX90107":{"name":"NX Layout","domain":"CAD","license":"Not explicitly stated"},"NX91100":{"name":"NX Design Standard (NL)","domain":"CAD","license":"Node Locked"},"NX91110":{"name":"NX Design Standard (FL)","domain":"CAD","license":"Floating"},"NX92100":{"name":"NX Design Advanced","domain":"CAD","license":"Not explicitly stated"},"NX93100":{"name":"NX Design Premium","domain":"CAD","license":"Not explicitly stated"},"NX92300":{"name":"NX Cool Shape Design Bundle","domain":"CAD","license":"Not explicitly stated"},"NX93300":{"name":"Mach 3 Industrial Design","domain":"CAD","license":"Not explicitly stated"},"NX93110":{"name":"NX Mach 3 Add Design with Convergent","domain":"CAD","license":"Not explicitly stated"},"AS5010":{"name":"AS/DS Entry Bundle","domain":"CAD","license":"Not explicitly stated"},"AS50501":{"name":"Automotive Supplier Engineering Bundle","domain":"CAD","license":"Not explicitly stated"},"AS50511":{"name":"Automotive Supplier Adv Engineering","domain":"CAD","license":"Not explicitly stated"},"NX93200":{"name":"Mach 3 Mold Design","domain":"CAD","license":"Not explicitly stated"},"NX93210":{"name":"Mach 3 Progressive Die Design","domain":"CAD","license":"Not explicitly stated"},"NX91113":{"name":"Mechatronics Concept Designer","domain":"CAD","license":"Not explicitly stated"},"NX12610":{"name":"","domain":"CAD","license":"Not explicitly stated"},"NX12620":{"name":"","domain":"CAD","license":"Not explicitly stated"},"NX30504":{"name":"NX Design Simulation (add-on)","domain":"CAD","license":"Not explicitly stated"},"SC12500":{"name":"Simcenter 3D Engineering Desktop","domain":"CAD","license":"Not explicitly stated"},"SC12510":{"name":"Simcenter 3D Engineering Desktop Add-On","domain":"CAD","license":"Not explicitly stated"},"SC13500":{"name":"Simcenter 3D Structures","domain":"CAD","license":"Not explicitly stated"},"SC13510":{"name":"Simcenter 3D Structures Add-On","domain":"CAD","license":"Not explicitly stated"},"NX11430":{"name":"NX CAM Foundation","domain":"CAM","license":"Not explicitly stated"},"NX12441":{"name":"NX CAD/CAM Turning (NL)","domain":"CAM","license":"Node Locked"},"NX12443":{"name":"NX CAD/CAM Mill-Turn (NL)","domain":"CAM","license":"Node Locked"},"NX12446":{"name":"NX CAD/CAM 2.5-axis Milling (NL)","domain":"CAM","license":"Node Locked"},"NX12449":{"name":"NX CAM-only Mill-Turn (NL)","domain":"CAM","license":"Node Locked"},"NX12451":{"name":"NX CAD/CAM 3 Axis Milling (NL)","domain":"CAM","license":"Node Locked"},"NX12440":{"name":"NX CAD/CAM Turning","domain":"CAM","license":"Not explicitly stated"},"NX12442":{"name":"NX CAD/CAM Mill-Turn","domain":"CAM","license":"Not explicitly stated"},"NX12445":{"name":"NX CAD/CAM 2.5-axis Milling","domain":"CAM","license":"Not explicitly stated"},"NX12450":{"name":"NX CAD/CAM 3 Axis Milling","domain":"CAM","license":"Not explicitly stated"},"NX12455":{"name":"NX CAD/CAM 4-axis Milling","domain":"CAM","license":"Not explicitly stated"},"NX12490":{"name":"NX CAD/CAM Total Machining","domain":"CAM","license":"Not explicitly stated"},"NX13440":{"name":"NX CAD/CAM Advanced 5-axis machining","domain":"CAM","license":"Not explicitly stated"},"NX11435":{"name":"NX Machine Tool Simulation","domain":"CAM","license":"Not explicitly stated"},"NX11440":{"name":"NX CAM-only Turning","domain":"CAM","license":"Not explicitly stated"},"NX11445":{"name":"NX CAM-only 2.5-Axis Milling","domain":"CAM","license":"Not explicitly stated"},"NX12480":{"name":"NX CAM-only 3 Axis Milling","domain":"CAM","license":"Not explicitly stated"},"NX11455":{"name":"NX CAM-only 4-axis Milling","domain":"CAM","license":"Not explicitly stated"},"NX12448":{"name":"NX CAM-only Mill-Turn","domain":"CAM","license":"Not explicitly stated"},"NX12460":{"name":"NX CAM-only 5 Axis Machining","domain":"CAM","license":"Not explicitly stated"},"NX11490":{"name":"NX CAM-only Total Machining","domain":"CAM","license":"Not explicitly stated"},"NX10211":{"name":"NX CMM Inspection Programming Basic","domain":"CAM","license":"Not explicitly stated"},"NX10212":{"name":"NX CMM Inspection Programming Total","domain":"CAM","license":"Not explicitly stated"},"NX11210NL":{"name":"NX AM Fixed-Plane Basic NL","domain":"CAM","license":"Not explicitly stated"},"NX12220NL":{"name":"NX AM for Multi Jet Fusion - Node Locked","domain":"CAM","license":"Not explicitly stated"},"NX12225NL":{"name":"NX AM for Multi-Jet Fusion NL","domain":"CAM","license":"Not explicitly stated"},"NX12226NL":{"name":"NX AM Printer Driver for Cura NL","domain":"CAM","license":"Not explicitly stated"},"NX13230NL":{"name":"NX AM Fixed-Plane Advanced - Node Locked","domain":"CAM","license":"Not explicitly stated"},"NX11210":{"name":"NX AM Fixed-Plane Basic bundle","domain":"CAM","license":"Not explicitly stated"},"NX12220":{"name":"NX AM for Multi Jet Fusion","domain":"CAM","license":"Not explicitly stated"},"NX12225":{"name":"NX AM for Multi jet Fusion bundle","domain":"CAM","license":"Not explicitly stated"},"NX12226":{"name":"NX AM Printer Driver for Cura","domain":"CAM","license":"Not explicitly stated"},"NX13230":{"name":"NX AM Fixed-Plane Advanced","domain":"CAM","license":"Not explicitly stated"},"NX12470":{"name":"NX Multi-axis Deposition","domain":"CAM","license":"Not explicitly stated"},"NX13655":{"name":"NX Multi-Axis Directed Energy Deposition","domain":"CAM","license":"Not explicitly stated"},"NX11465":{"name":"NX CAM Wire EDM Advanced","domain":"CAM","license":"Not explicitly stated"},"NX30640":{"name":"NX CAM Robotics","domain":"CAM","license":"Not explicitly stated"},"NX30708":{"name":"NX Smart Machine Kit Solutions 3 Axis","domain":"CAM","license":"Not explicitly stated"},"NX30709":{"name":"NX Smart Machine Kit Solutions 4 Axis","domain":"CAM","license":"Not explicitly stated"},"NX30713":{"name":"NX Smart Machine Kit Solutions Complex","domain":"CAM","license":"Not explicitly stated"},"NX30712":{"name":"NX Smart Machine Kit Solutions Additive","domain":"CAM","license":"Not explicitly stated"},"NX11431":{"name":"NX Machine Tool Simulation - Advanced","domain":"CAM","license":"Not explicitly stated"},"NX13450":{"name":"NX Sinumerik Collision Avoidance","domain":"CAM","license":"Not explicitly stated"},"NX10220":{"name":"NX VSA Stackup","domain":"CAM","license":"Not explicitly stated"}},"features":[{"id":"CAD|nx_integration|Teamcenter Integration for NX (see note at bottom of page)","name":"Teamcenter Integration for NX (see note at bottom of page)","feature":"nx_integration","domain":"CAD","products":["NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|nx_access_tcclass|Teamcenter Classification integration","name":"Teamcenter Classification integration","feature":"nx_access_tcclass","domain":"CAD","products":["NX12610","NX12620"]},{"id":"CAD|change_access|Change Management User","name":"Change Management User","feature":"change_access","domain":"CAD","products":[]},{"id":"CAD|nx_designworkset nx_partitions nx_smartdiscovery|NX Smart Context Designer","name":"NX Smart Context Designer","feature":"nx_designworkset nx_partitions nx_smartdiscovery","domain":"CAD","products":[]},{"id":"CAD|shape_search|NX Integration to Geolus","name":"NX Integration to Geolus","feature":"shape_search","domain":"CAD","products":[]},{"id":"CAD|nx_eclass|NX Author for ECLASS","name":"NX Author for ECLASS","feature":"nx_eclass","domain":"CAD","products":[]},{"id":"CAD|nx_4gd_integration|NX 4GD Embedded Client","name":"NX 4GD Embedded Client","feature":"nx_4gd_integration","domain":"CAD","products":["NX12610","NX12620"]},{"id":"CAD|pcf_package_file|XPresReview Authoring","name":"XPresReview Authoring","feature":"pcf_package_file","domain":"CAD","products":["NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|iges|IGES","name":"IGES","feature":"iges","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|dxfdwg|DXF/DWG","name":"DXF/DWG","feature":"dxfdwg","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|3d_to_2d_flattener|2D Exchange","name":"2D Exchange","feature":"3d_to_2d_flattener","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|g3d_nx_translator|NX G3D Translator","name":"NX G3D Translator","feature":"g3d_nx_translator","domain":"CAD","products":[]},{"id":"CAD|step_ap203 / step_ap214|STEP AP203/214","name":"STEP AP203/214","feature":"step_ap203 / step_ap214","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|step_ap242|STEP AP242","name":"STEP AP242","feature":"step_ap242","domain":"CAD","products":[]},{"id":"CAD|catv5_nx_sca|NX Translator for Catia V5","name":"NX Translator for Catia V5","feature":"catv5_nx_sca","domain":"CAD","products":["AS5010","AS50501","AS50511"]},{"id":"CAD|proenx|Translator for Creo","name":"Translator for Creo","feature":"proenx","domain":"CAD","products":[]},{"id":"CAD|cattoug|NX Translator for CATIA V4","name":"NX Translator for CATIA V4","feature":"cattoug","domain":"CAD","products":[]},{"id":"CAD|acis_nx_translator|NX ACIS Translator","name":"NX ACIS Translator","feature":"acis_nx_translator","domain":"CAD","products":[]},{"id":"CAD|sla_3d_systems|Rapid Prototyping","name":"Rapid Prototyping","feature":"sla_3d_systems","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|gateway|Solid Edge Open/Save As","name":"Solid Edge Open/Save As","feature":"gateway","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|gateway|JT and Parasolid Open/Save As/Import/Export","name":"JT and Parasolid Open/Save As/Import/Export","feature":"gateway","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","NX30504","SC12500","SC12510","SC13500","SC13510"]},{"id":"CAD|gateway|SolidWorks Open/Save As","name":"SolidWorks Open/Save As","feature":"gateway","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|nx_to_ifc ifc_to_nx|NX Translator for IFC (export, import)","name":"NX Translator for IFC (export, import)","feature":"nx_to_ifc ifc_to_nx","domain":"CAD","products":[]},{"id":"CAD|revit_to_nx|NX Translator for Revit","name":"NX Translator for Revit","feature":"revit_to_nx","domain":"CAD","products":[]},{"id":"CAD|rhino3d_to_nx|NX Translator for Rhino","name":"NX Translator for Rhino","feature":"rhino3d_to_nx","domain":"CAD","products":[]},{"id":"CAD|3dxml_to_nx|NX Translator for 3DXML","name":"NX Translator for 3DXML","feature":"3dxml_to_nx","domain":"CAD","products":[]},{"id":"CAD|inventor_to_nx|NX Translator for Inventor","name":"NX Translator for Inventor","feature":"inventor_to_nx","domain":"CAD","products":[]},{"id":"CAD|gateway|OBJ","name":"OBJ","feature":"gateway","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|nx_point_cloud_view|Point Cloud Integration","name":"Point Cloud Integration","feature":"nx_point_cloud_view","domain":"CAD","products":[]},{"id":"CAD|ug_pcb_exchange ug_pcb_modeler|PCB Exchange","name":"PCB Exchange","feature":"ug_pcb_exchange ug_pcb_modeler","domain":"CAD","products":[]},{"id":"CAD|ug_pcbx_zuken|PCB Exchange for Zuken (Add-On)","name":"PCB Exchange for Zuken (Add-On)","feature":"ug_pcbx_zuken","domain":"CAD","products":[]},{"id":"CAD|ug_pcb_exchange ug_pcb_modeler ug_pcbx_zuken|PCB Exchange for Zuken CR-5000","name":"PCB Exchange for Zuken CR-5000","feature":"ug_pcb_exchange ug_pcb_modeler ug_pcbx_zuken","domain":"CAD","products":[]},{"id":"CAD|nx_pcbx_connect|PCB Exchange Connect","name":"PCB Exchange Connect","feature":"nx_pcbx_connect","domain":"CAD","products":[]},{"id":"CAD|nx_pcbx_xpedition|NX PCB Exchange for Xpedition","name":"NX PCB Exchange for Xpedition","feature":"nx_pcbx_xpedition","domain":"CAD","products":[]},{"id":"CAD|ug_web_express|Web Express","name":"Web Express","feature":"ug_web_express","domain":"CAD","products":["NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|n/a|Web Editing","name":"Web Editing","feature":"n/a","domain":"CAD","products":[]},{"id":"CAD|nx_tdp|NX Technical Data Package","name":"NX Technical Data Package","feature":"nx_tdp","domain":"CAD","products":[]},{"id":"CAD|nx_mcd_player|NX MCD Player","name":"NX MCD Player","feature":"nx_mcd_player","domain":"CAD","products":[]},{"id":"CAD|view_only|NX Viewer","name":"NX Viewer","feature":"view_only","domain":"CAD","products":[]},{"id":"CAD|solid_modeling, features_modeling|Solid & Feature Modeling","name":"Solid & Feature Modeling","feature":"solid_modeling, features_modeling","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|nx_synchronous|Synchronous Technology","name":"Synchronous Technology","feature":"nx_synchronous","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|solid_modeling, features_modeling|Core Convergent Modeling","name":"Core Convergent Modeling","feature":"solid_modeling, features_modeling","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|drafting|Drafting","name":"Drafting","feature":"drafting","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620"]},{"id":"CAD|nx_layout|NX Layout (note Add-on module is \"Layout for NX\")","name":"NX Layout (note Add-on module is \"Layout for NX\")","feature":"nx_layout","domain":"CAD","products":["NX90107"]},{"id":"CAD|nx_drawing_auto|Drawing Automation","name":"Drawing Automation","feature":"nx_drawing_auto","domain":"CAD","products":[]},{"id":"CAD|assemblies|Assemblies","name":"Assemblies","feature":"assemblies","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|nx_freeform_1|Freeform Modeling Basic","name":"Freeform Modeling Basic","feature":"nx_freeform_1","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113","SC12500","SC13500"]},{"id":"CAD|nx_freeform_2|Freeform Modeling Advanced","name":"Freeform Modeling Advanced","feature":"nx_freeform_2","domain":"CAD","products":["NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|nx_polygon_modeling|Advanced Convergent Modeling","name":"Advanced Convergent Modeling","feature":"nx_polygon_modeling","domain":"CAD","products":["NX93110"]},{"id":"CAD|nx_sheet_metal|NX Sheet Metal","name":"NX Sheet Metal","feature":"nx_sheet_metal","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113"]},{"id":"CAD|ug_comp_flattener|NX Fabric Flattener","name":"NX Fabric Flattener","feature":"ug_comp_flattener","domain":"CAD","products":[]},{"id":"CAD|nx_flexible_pcb|Flexible PCB","name":"Flexible PCB","feature":"nx_flexible_pcb","domain":"CAD","products":["NX92100","NX93100","NX93200","NX93210"]},{"id":"CAD|geometric_tol|PMI","name":"PMI","feature":"geometric_tol","domain":"CAD","products":["NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX12610","NX12620"]},{"id":"CAD|nx_pmi_effectivity|PMI Effectivity","name":"PMI Effectivity","feature":"nx_pmi_effectivity","domain":"CAD","products":[]},{"id":"CAD|nx_mbd|NX Model Based Definition","name":"NX Model Based Definition","feature":"nx_mbd","domain":"CAD","products":[]},{"id":"CAD|nx_inspector|NX Inspector","name":"NX Inspector","feature":"nx_inspector","domain":"CAD","products":[]},{"id":"CAD|nx_coatings|NX Coatings","name":"NX Coatings","feature":"nx_coatings","domain":"CAD","products":[]},{"id":"CAD|usr_defined_features|User Defined Features","name":"User Defined Features","feature":"usr_defined_features","domain":"CAD","products":["NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|adv_assemblies|Advanced Assemblies","name":"Advanced Assemblies","feature":"adv_assemblies","domain":"CAD","products":["NX93100","NX93300","NX93110","AS50501","AS50511","NX93210"]},{"id":"CAD|wave|WAVE Control","name":"WAVE Control","feature":"wave","domain":"CAD","products":["NX93300","AS50501","AS50511"]},{"id":"CAD|nx_3d_path_planning nx_3d_swept_volume|NX Assembly Path Planning","name":"NX Assembly Path Planning","feature":"nx_3d_path_planning nx_3d_swept_volume","domain":"CAD","products":[]},{"id":"CAD|nx_mu_notification|NX Multi-User Design Notification","name":"NX Multi-User Design Notification","feature":"nx_mu_notification","domain":"CAD","products":[]},{"id":"CAD|adv_sheet_metal_dsgn aero_sheet_metal flat_patterns nx_sheet_metal sheet_metal|Advanced Sheetmetal","name":"Advanced Sheetmetal","feature":"adv_sheet_metal_dsgn aero_sheet_metal flat_patterns nx_sheet_metal sheet_metal","domain":"CAD","products":["AS50501","AS50511","NX93210"]},{"id":"CAD|nx_2d_nesting|NX 2D Nesting","name":"NX 2D Nesting","feature":"nx_2d_nesting","domain":"CAD","products":[]},{"id":"CAD|ug_human nx_jacktkapi|Human Modeling","name":"Human Modeling","feature":"ug_human nx_jacktkapi","domain":"CAD","products":[]},{"id":"CAD|nx_posture|Human Modeling Posture Prediction","name":"Human Modeling Posture Prediction","feature":"nx_posture","domain":"CAD","products":[]},{"id":"CAD|nx_composites|NX Composites","name":"NX Composites","feature":"nx_composites","domain":"CAD","products":[]},{"id":"CAD|nx_composites_laser|NX Composites Laser Projection","name":"NX Composites Laser Projection","feature":"nx_composites_laser","domain":"CAD","products":[]},{"id":"CAD|nx_composites_cae|NX Composites CAE Interface","name":"NX Composites CAE Interface","feature":"nx_composites_cae","domain":"CAD","products":[]},{"id":"CAD|ugweld|Weld Assistant","name":"Weld Assistant","feature":"ugweld","domain":"CAD","products":["AS50511"]},{"id":"CAD|dmu_markup|NX DMU and Markup","name":"NX DMU and Markup","feature":"dmu_markup","domain":"CAD","products":[]},{"id":"CAD|dmu_markup_viewer|DMU & Markup Add-on for NX Viewer","name":"DMU & Markup Add-on for NX Viewer","feature":"dmu_markup_viewer","domain":"CAD","products":[]},{"id":"CAD|nx_join|NX Join","name":"NX Join","feature":"nx_join","domain":"CAD","products":[]},{"id":"CAD|tooling_locators|NX Tooling Locators","name":"NX Tooling Locators","feature":"tooling_locators","domain":"CAD","products":[]},{"id":"CAD|nx_structure_design|NX Structure Designer","name":"NX Structure Designer","feature":"nx_structure_design","domain":"CAD","products":[]},{"id":"CAD|nx_lattice_base nx_lattice_type1|Lattice Structures Design","name":"Lattice Structures Design","feature":"nx_lattice_base nx_lattice_type1","domain":"CAD","products":[]},{"id":"CAD|nx_additive_design|Design for Additive Features and Checkers","name":"Design for Additive Features and Checkers","feature":"nx_additive_design","domain":"CAD","products":["NX93110"]},{"id":"CAD|nx_lattice_designer|NX Lattice Designer","name":"NX Lattice Designer","feature":"nx_lattice_designer","domain":"CAD","products":[]},{"id":"CAD|nx_design_explorer hds_heeds_dll_nx nx_design_explr_eval|NX Design Space Explorer","name":"NX Design Space Explorer","feature":"nx_design_explorer hds_heeds_dll_nx nx_design_explr_eval","domain":"CAD","products":[]},{"id":"CAD|nx_algorithmic|NX Algorithmic Modeling","name":"NX Algorithmic Modeling","feature":"nx_algorithmic","domain":"CAD","products":[]},{"id":"CAD|nx_implicit|NX Implicit Modeling","name":"NX Implicit Modeling","feature":"nx_implicit","domain":"CAD","products":[]},{"id":"CAD|nx_perf_predictor|NX Performance Predictor","name":"NX Performance Predictor","feature":"nx_perf_predictor","domain":"CAD","products":[]},{"id":"CAD|n/a|NX Performance Predictor (no optimization)","name":"NX Performance Predictor (no optimization)","feature":"n/a","domain":"CAD","products":[]},{"id":"CAD|nx_plastics_base|NX Molded Part Designer","name":"NX Molded Part Designer","feature":"nx_plastics_base","domain":"CAD","products":[]},{"id":"CAD|nx_multi_scale|Multi Scale design","name":"Multi Scale design","feature":"nx_multi_scale","domain":"CAD","products":["NX93100"]},{"id":"CAD|routing_base|Routing Base","name":"Routing Base","feature":"routing_base","domain":"CAD","products":["NX92100","NX93100","NX93300","AS50501","AS50511","NX93200","NX93210"]},{"id":"CAD|routing_pipetube routing_advanced|Routing Piping & Tubing","name":"Routing Piping & Tubing","feature":"routing_pipetube routing_advanced","domain":"CAD","products":["AS50511"]},{"id":"CAD|routing_pid routing _advanced|Routing P&ID","name":"Routing P&ID","feature":"routing_pid routing _advanced","domain":"CAD","products":["AS50511"]},{"id":"CAD|routing_cabling routing_advanced|Routing Cabling","name":"Routing Cabling","feature":"routing_cabling routing_advanced","domain":"CAD","products":["AS50511"]},{"id":"CAD|routing_harness routing_advanced|Routing Harness","name":"Routing Harness","feature":"routing_harness routing_advanced","domain":"CAD","products":["AS50511"]},{"id":"CAD|routing_hvac routing_advanced|Routing HVAC","name":"Routing HVAC","feature":"routing_hvac routing_advanced","domain":"CAD","products":["AS50511"]},{"id":"CAD|nx_cable_router|NX Cable Router","name":"NX Cable Router","feature":"nx_cable_router","domain":"CAD","products":[]},{"id":"CAD|routing_platform routing_advanced|Platforms","name":"Platforms","feature":"routing_platform routing_advanced","domain":"CAD","products":[]},{"id":"CAD|nx_pid_design_author|P&ID Designer","name":"P&ID Designer","feature":"nx_pid_design_author","domain":"CAD","products":[]},{"id":"CAD|nx_pid_design_reader|P&ID Designer Routing Integration","name":"P&ID Designer Routing Integration","feature":"nx_pid_design_reader","domain":"CAD","products":[]},{"id":"CAD|aero_sheet_metal nx_aero_design nx_onestep_analysis|NX Aerospace Design Add-On","name":"NX Aerospace Design Add-On","feature":"aero_sheet_metal nx_aero_design nx_onestep_analysis","domain":"CAD","products":[]},{"id":"CAD|ug_mold_design|Mold Wizard","name":"Mold Wizard","feature":"ug_mold_design","domain":"CAD","products":["NX93200"]},{"id":"CAD|nx_feature2cost_mold|NX Feature2Cost - Mold","name":"NX Feature2Cost - Mold","feature":"nx_feature2cost_mold","domain":"CAD","products":[]},{"id":"CAD|nx_feature2cost_stmp|NX Feature2Cost - Stamping","name":"NX Feature2Cost - Stamping","feature":"nx_feature2cost_stmp","domain":"CAD","products":[]},{"id":"CAD|nx_electrode_wizard|NX Electrode Design","name":"NX Electrode Design","feature":"nx_electrode_wizard","domain":"CAD","products":[]},{"id":"CAD|nx_mold_cool_basic, nx_mold_cool_solve|NX Mold Cooling","name":"NX Mold Cooling","feature":"nx_mold_cool_basic, nx_mold_cool_solve","domain":"CAD","products":[]},{"id":"CAD|conf_cooling_channel|NX Conformal Cooling","name":"NX Conformal Cooling","feature":"conf_cooling_channel","domain":"CAD","products":[]},{"id":"CAD|prog_die_wizard nx_onestep_analysis|Progressive Die Wizard","name":"Progressive Die Wizard","feature":"prog_die_wizard nx_onestep_analysis","domain":"CAD","products":["NX93210"]},{"id":"CAD|nx_dievalidation|Stamping Die Validation","name":"Stamping Die Validation","feature":"nx_dievalidation","domain":"CAD","products":[]},{"id":"CAD|ug_die_design|Stamping Die Structure Design","name":"Stamping Die Structure Design","feature":"ug_die_design","domain":"CAD","products":[]},{"id":"CAD|die_engineering|Stamping Die Engineering","name":"Stamping Die Engineering","feature":"die_engineering","domain":"CAD","products":[]},{"id":"CAD|nx_faw|NX Forming","name":"NX Forming","feature":"nx_faw","domain":"CAD","products":[]},{"id":"CAD|nx_faw_solver|NX Forming SMP","name":"NX Forming SMP","feature":"nx_faw_solver","domain":"CAD","products":[]},{"id":"CAD|stage_model|NX Staged Models","name":"NX Staged Models","feature":"stage_model","domain":"CAD","products":[]},{"id":"CAD|nx_general_packaging|NX General Packaging (VDA)","name":"NX General Packaging (VDA)","feature":"nx_general_packaging","domain":"CAD","products":["AS50511"]},{"id":"CAD|vehicle_des_val|NX Vehicle Design and Validation","name":"NX Vehicle Design and Validation","feature":"vehicle_des_val","domain":"CAD","products":[]},{"id":"CAD|nx_mcd_core|Mechatronics Concept Designer for NX","name":"Mechatronics Concept Designer for NX","feature":"nx_mcd_core","domain":"CAD","products":["NX91113"]},{"id":"CAD|nx_mcd_essential|NX Mechatronics Concept Designer Base","name":"NX Mechatronics Concept Designer Base","feature":"nx_mcd_essential","domain":"CAD","products":[]},{"id":"CAD|nx_mbpm_bill_of_proc|NX Process Planner","name":"NX Process Planner","feature":"nx_mbpm_bill_of_proc","domain":"CAD","products":[]},{"id":"CAD|nx_mbpm_proc_model|NX Process Modeler","name":"NX Process Modeler","feature":"nx_mbpm_proc_model","domain":"CAD","products":[]},{"id":"CAD|nx_mbpm_work_inst|NX Process Instructor","name":"NX Process Instructor","feature":"nx_mbpm_work_inst","domain":"CAD","products":[]},{"id":"CAD|nx_bim|NX AEC/BIM","name":"NX AEC/BIM","feature":"nx_bim","domain":"CAD","products":[]},{"id":"CAD|nx_concrete|NX for Concrete Design","name":"NX for Concrete Design","feature":"nx_concrete","domain":"CAD","products":[]},{"id":"CAD|nx_diagramming|NX Diagramming","name":"NX Diagramming","feature":"nx_diagramming","domain":"CAD","products":[]},{"id":"CAD|ld_line_designer, mfg_plant_author|Line Designer","name":"Line Designer","feature":"ld_line_designer, mfg_plant_author","domain":"CAD","products":["NX12610","NX12620"]},{"id":"CAD|studio_render|Static Photorealistic Rendering","name":"Static Photorealistic Rendering","feature":"studio_render","domain":"CAD","products":["NX92100","NX93100","NX92300","NX93300","AS5010","AS50501","AS50511","SC12500","SC13500"]},{"id":"CAD|studio_visualize|Dynamic Rendering (Visualize Shape)","name":"Dynamic Rendering (Visualize Shape)","feature":"studio_visualize","domain":"CAD","products":["NX10101","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS50501","AS50511","NX93200","NX93210","NX91113","SC12500","SC13500"]},{"id":"CAD|appearance_mgmt|NX Appearance Management","name":"NX Appearance Management","feature":"appearance_mgmt","domain":"CAD","products":[]},{"id":"CAD|appearance_mgmt_mgd|NX Appearance Management Managed","name":"NX Appearance Management Managed","feature":"appearance_mgmt_mgd","domain":"CAD","products":[]},{"id":"CAD|nx_draw_shape|NX Draw Shape","name":"NX Draw Shape","feature":"nx_draw_shape","domain":"CAD","products":[]},{"id":"CAD|studio_free_form|Freeform Shape","name":"Freeform Shape","feature":"studio_free_form","domain":"CAD","products":["NX93100","NX92300","NX93300","NX93110","AS50501","AS50511"]},{"id":"CAD|nx_subdivision|Realize Shape","name":"Realize Shape","feature":"nx_subdivision","domain":"CAD","products":["NX92300","NX93300","NX93110","AS50501","AS50511"]},{"id":"CAD|studio_analyze|Advanced Surface Analysis","name":"Advanced Surface Analysis","feature":"studio_analyze","domain":"CAD","products":["NX93100","NX92300","NX93300","NX93110","AS50501","AS50511"]},{"id":"CAD|ug_checkmate|Product Validation (Check Mate Runtime)","name":"Product Validation (Check Mate Runtime)","feature":"ug_checkmate","domain":"CAD","products":["NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|ug_checkmate, ug_kf_author|Product Validation Authoring (Check Mate Author)","name":"Product Validation Authoring (Check Mate Author)","feature":"ug_checkmate, ug_kf_author","domain":"CAD","products":[]},{"id":"CAD|Licensed thru SPD|DFMPro Named User","name":"DFMPro Named User","feature":"Licensed thru SPD","domain":"CAD","products":[]},{"id":"CAD|dfm_studio|NX DFM Advisor","name":"NX DFM Advisor","feature":"dfm_studio","domain":"CAD","products":[]},{"id":"CAD|vda_4955_checker|NX VDA 4955 Checker","name":"NX VDA 4955 Checker","feature":"vda_4955_checker","domain":"CAD","products":["AS5010","AS50501","AS50511"]},{"id":"CAD|ug_opt_wizard|Optimization Wizard","name":"Optimization Wizard","feature":"ug_opt_wizard","domain":"CAD","products":["NX92100","NX93100","NX93300","NX93110","AS50501","AS50511"]},{"id":"CAD|ug_prod_des_advisor|Molded Part Validation","name":"Molded Part Validation","feature":"ug_prod_des_advisor","domain":"CAD","products":["NX93100","NX93300","NX93110","AS50501","AS50511","NX93200"]},{"id":"CAD|nx_easyfill_analysis|Basic Flow Analysis","name":"Basic Flow Analysis","feature":"nx_easyfill_analysis","domain":"CAD","products":[]},{"id":"CAD|nx_spsd_stress|Stress analysis wizard","name":"Stress analysis wizard","feature":"nx_spsd_stress","domain":"CAD","products":["NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX30504","SC13500"]},{"id":"CAD|nx_spsd_vibration|Vibration wizard","name":"Vibration wizard","feature":"nx_spsd_vibration","domain":"CAD","products":["NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX30504","SC13500"]},{"id":"CAD|nx_easyfill_advanced|Advanced Flow Analysis","name":"Advanced Flow Analysis","feature":"nx_easyfill_advanced","domain":"CAD","products":[]},{"id":"CAD|nx_onestep_analysis|One Step Formability Analysis","name":"One Step Formability Analysis","feature":"nx_onestep_analysis","domain":"CAD","products":["AS50501","AS50511","NX93210"]},{"id":"CAD|nx_animationdesigner|Animation Designer","name":"Animation Designer","feature":"nx_animationdesigner","domain":"CAD","products":[]},{"id":"CAD|nx_sustainablity|NX Design for Sustainability","name":"NX Design for Sustainability","feature":"nx_sustainablity","domain":"CAD","products":[]},{"id":"CAD|nx_corrosion_risk|NX Corrosion Analysis Indicator","name":"NX Corrosion Analysis Indicator","feature":"nx_corrosion_risk","domain":"CAD","products":[]},{"id":"CAD|gateway|HD3D Visual Reporting OOTB Reports","name":"HD3D Visual Reporting OOTB Reports","feature":"gateway","domain":"CAD","products":["NX41000","NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX92300","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX91113"]},{"id":"CAD|nx_visual_reporting|HD3D Visual Reporting Custom Report Editing","name":"HD3D Visual Reporting Custom Report Editing","feature":"nx_visual_reporting","domain":"CAD","products":["NX93100","NX93300","AS5010","AS50501","AS50511","NX93200","NX93210","NX12610","NX12620"]},{"id":"CAD|nx_sdpd_pam_a|Physical Architecture Diagram Author","name":"Physical Architecture Diagram Author","feature":"nx_sdpd_pam_a","domain":"CAD","products":[]},{"id":"CAD|nx_sdpd_pam_v|Physical Architecture Diagram Viewer","name":"Physical Architecture Diagram Viewer","feature":"nx_sdpd_pam_v","domain":"CAD","products":["AS50501","AS50511"]},{"id":"CAD|nx_sdpd_mpm_a|Physical Parameter Management Author","name":"Physical Parameter Management Author","feature":"nx_sdpd_mpm_a","domain":"CAD","products":[]},{"id":"CAD|nx_sdpd_mpm_v|Physical Parameter Management Viewer","name":"Physical Parameter Management Viewer","feature":"nx_sdpd_mpm_v","domain":"CAD","products":["AS50501","AS50511"]},{"id":"CAD|grip_development|Grip Author","name":"Grip Author","feature":"grip_development","domain":"CAD","products":[]},{"id":"CAD|ufunc_development, c_p_p_author, dotnet_author, java_author|Open Toolkits Author","name":"Open Toolkits Author","feature":"ufunc_development, c_p_p_author, dotnet_author, java_author","domain":"CAD","products":[]},{"id":"CAD|dotnet_author|.Net Author","name":".Net Author","feature":"dotnet_author","domain":"CAD","products":[]},{"id":"CAD|n/a|Python Author","name":"Python Author","feature":"n/a","domain":"CAD","products":[]},{"id":"CAD|ui_styler|Dialog Designer","name":"Dialog Designer","feature":"ui_styler","domain":"CAD","products":[]},{"id":"CAD|pts_author|PTS Author","name":"PTS Author","feature":"pts_author","domain":"CAD","products":["NX12620"]},{"id":"CAD|nx_gc_toolkit|Greater China Toolkit","name":"Greater China Toolkit","feature":"nx_gc_toolkit","domain":"CAD","products":[]},{"id":"CAD|nx_ml_cmd_pred_ui|NX Command Prediction","name":"NX Command Prediction","feature":"nx_ml_cmd_pred_ui","domain":"CAD","products":[]},{"id":"CAD|nx_ml_sel_pred_std|NX Smart Selection","name":"NX Smart Selection","feature":"nx_ml_sel_pred_std","domain":"CAD","products":["NX93100","NX93300"]},{"id":"CAD|nx_ml_region_finder|NX Select Similar Faces","name":"NX Select Similar Faces","feature":"nx_ml_region_finder","domain":"CAD","products":["NX93100","NX93300"]},{"id":"CAD|nx_ml_show_hide|NX Show/Hide Similar","name":"NX Show/Hide Similar","feature":"nx_ml_show_hide","domain":"CAD","products":["NX93100","NX93300"]},{"id":"CAD|nx_ml_voice_std|NX Voice - Command Assistant","name":"NX Voice - Command Assistant","feature":"nx_ml_voice_std","domain":"CAD","products":[]},{"id":"CAD|nx_copilot_tdoc|Design Copilot NX X","name":"Design Copilot NX X","feature":"nx_copilot_tdoc","domain":"CAD","products":[]},{"id":"CAD|grip_execute|Grip Runtime","name":"Grip Runtime","feature":"grip_execute","domain":"CAD","products":["NX41000","NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX12610","NX12620","SC12500","SC13500"]},{"id":"CAD|ug_kf_execute|KF Runtime","name":"KF Runtime","feature":"ug_kf_execute","domain":"CAD","products":["NX10101","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","SC12500","SC13500"]},{"id":"CAD|pstudio_cons|Process Studio Runtime","name":"Process Studio Runtime","feature":"pstudio_cons","domain":"CAD","products":["NX10101","NX90107","NX91100","NX91110","NX92100","NX93100","NX93300","NX93110","AS5010","AS50501","AS50511","NX93200","NX93210","NX30504","SC12500","SC13500"]},{"id":"CAD|pts_consumer|Product Template Studio Consumer","name":"Product Template Studio Consumer","feature":"pts_consumer","domain":"CAD","products":["AS5010","AS50501","AS50511","NX12610","NX12620"]},{"id":"CAD|nxefd, nxefdsolver|FloEFD for NX (Designer CFD)","name":"FloEFD for NX (Designer CFD)","feature":"nxefd, nxefdsolver","domain":"CAD","products":[]},{"id":"CAD|nxdfddesigner|NX CFD Designer","name":"NX CFD Designer","feature":"nxdfddesigner","domain":"CAD","products":[]},{"id":"CAD|mechanisms sc_motion_designer|NX Motion","name":"NX Motion","feature":"mechanisms sc_motion_designer","domain":"CAD","products":[]},{"id":"CAD|des_top_opt|NX Topology Optimizer","name":"NX Topology Optimizer","feature":"des_top_opt","domain":"CAD","products":[]},{"id":"CAD|nx_design_sim|NX Design Simulation","name":"NX Design Simulation","feature":"nx_design_sim","domain":"CAD","products":["NX30504"]},{"id":"CAD|nx_ship_basic nx_ship_concept|NX Ship Structure Basic Design","name":"NX Ship Structure Basic Design","feature":"nx_ship_basic nx_ship_concept","domain":"CAD","products":[]},{"id":"CAD|nx_ship_detail nx_ship_concept|NX Ship Structure Detail Design","name":"NX Ship Structure Detail Design","feature":"nx_ship_detail nx_ship_concept","domain":"CAD","products":[]},{"id":"CAD|nx_ship_mfg_prep|NX Ship Structure Manufacturing Preparation","name":"NX Ship Structure Manufacturing Preparation","feature":"nx_ship_mfg_prep","domain":"CAD","products":[]},{"id":"CAD|nx_ship_drafting|NX Ship Drafting","name":"NX Ship Drafting","feature":"nx_ship_drafting","domain":"CAD","products":[]},{"id":"CAD|nx_ship_super_plate|NX Ship Manufacturing Super Plate","name":"NX Ship Manufacturing Super Plate","feature":"nx_ship_super_plate","domain":"CAD","products":[]},{"id":"CAD|structure_weld|NX Rules Based Structure Welding","name":"NX Rules Based Structure Welding","feature":"structure_weld","domain":"CAD","products":[]},{"id":"CAD|nx_penetration_mgmt|NX Penetration Management","name":"NX Penetration Management","feature":"nx_penetration_mgmt","domain":"CAD","products":[]},{"id":"CAD|nx_ship_drw_dims|AB Knowledge System - Structure dimensions","name":"AB Knowledge System - Structure dimensions","feature":"nx_ship_drw_dims","domain":"CAD","products":[]},{"id":"CAD|nx_ship_pmi|AB Knowledge System - Structure PMI","name":"AB Knowledge System - Structure PMI","feature":"nx_ship_pmi","domain":"CAD","products":[]},{"id":"CAD|nx_pipe_drw_pmi|AB Knowledge System - Piping ISO","name":"AB Knowledge System - Piping ISO","feature":"nx_pipe_drw_pmi","domain":"CAD","products":[]},{"id":"CAD|nx_ship_gen_arrange|3D General Arrangement","name":"3D General Arrangement","feature":"nx_ship_gen_arrange","domain":"CAD","products":[]},{"id":"CAD|nx_xr|NX Extended Reality","name":"NX Extended Reality","feature":"nx_xr","domain":"CAD","products":[]},{"id":"CAD|nx_vr_sudr|NX Virtual Reality - Review","name":"NX Virtual Reality - Review","feature":"nx_vr_sudr","domain":"CAD","products":[]},{"id":"CAD|nx_vr_mult_usr_srv|NX Virtual Reality - Collaborate","name":"NX Virtual Reality - Collaborate","feature":"nx_vr_mult_usr_srv","domain":"CAD","products":[]},{"id":"CAD|nx_immersive_explore|NX Immersive Explorer","name":"NX Immersive Explorer","feature":"nx_immersive_explore","domain":"CAD","products":[]},{"id":"CAD|nx_immersive_design|NX Immersive Designer","name":"NX Immersive Designer","feature":"nx_immersive_design","domain":"CAD","products":[]},{"id":"CAD|nx_x_immersivecollab|NX Immersive Collaborator","name":"NX Immersive Collaborator","feature":"nx_x_immersivecollab","domain":"CAD","products":[]},{"id":"CAD|nx_masterfem|Pre/Post","name":"Pre/Post","feature":"nx_masterfem","domain":"CAD","products":["AS50511","SC12500","SC12510","SC13500","SC13510"]},{"id":"CAD|nx_nastran_export|Pre/Post Simcenter Nastran Environment","name":"Pre/Post Simcenter Nastran Environment","feature":"nx_nastran_export","domain":"CAD","products":["AS50511","NX30504","SC12500","SC12510","SC13500","SC13510"]},{"id":"CAD|sc_enabled|Indicates this product is a Simcenter Engineering Desktop and enables other functions which require this prerequisite","name":"Indicates this product is a Simcenter Engineering Desktop and enables other functions which require this prerequisite","feature":"sc_enabled","domain":"CAD","products":["SC12500","SC12510","SC13500"]},{"id":"CAD|ug_nas_bn|Bundle with Simcenter Nastran","name":"Bundle with Simcenter Nastran","feature":"ug_nas_bn","domain":"CAD","products":["AS50511","SC13500","SC13510"]},{"id":"CAD|nx_nas_bn_basic_dsk|Simcenter Nastran Basic - Desktop","name":"Simcenter Nastran Basic - Desktop","feature":"nx_nas_bn_basic_dsk","domain":"CAD","products":["AS50511","NX30504","SC13500","SC13510"]},{"id":"CAD|nx_nas_nonlin_dsk|Simcenter Nastran Basic - Desktop","name":"Simcenter Nastran Basic - Desktop","feature":"nx_nas_nonlin_dsk","domain":"CAD","products":["AS50511","SC13500","SC13510"]},{"id":"CAM|3d_to_2d_flattener|2D Exchange","name":"2D Exchange","feature":"3d_to_2d_flattener","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|assemblies|Assemblies","name":"Assemblies","feature":"assemblies","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|cam_base|CAM Base","name":"CAM Base","feature":"cam_base","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|dxf_to_ug|IGES & DXF/DWG","name":"IGES & DXF/DWG","feature":"dxf_to_ug","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX13230NL","NX11210","NX12220","NX12225","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|dxfdwg|IGES & DXF/DWG","name":"IGES & DXF/DWG","feature":"dxfdwg","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX13230NL","NX11210","NX12220","NX12225","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|gateway|Solid Edge & Solid Works Open/Save As","name":"Solid Edge & Solid Works Open/Save As","feature":"gateway","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|graphical_tool_path|Tool Path Editor","name":"Tool Path Editor","feature":"graphical_tool_path","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|grip_execute|Grip Runtime","name":"Grip Runtime","feature":"grip_execute","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|iges|IGES & DXF/DWG","name":"IGES & DXF/DWG","feature":"iges","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nc_external_program|Access to CLF Post (obsolete)","name":"Access to CLF Post (obsolete)","feature":"nc_external_program","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nc_wizard_builder|NC Wizard Builder","name":"NC Wizard Builder","feature":"nc_wizard_builder","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_isv_mtb|Machine Tool Builder","name":"Machine Tool Builder","feature":"nx_isv_mtb","domain":"CAM","products":["NX13450"]},{"id":"CAM|nx_post_config_adv|Post Configurator - Advanced","name":"Post Configurator - Advanced","feature":"nx_post_config_adv","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX13450"]},{"id":"CAM|nx_wi_authoring|Work Instruction Authoring","name":"Work Instruction Authoring","feature":"nx_wi_authoring","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465"]},{"id":"CAM|pstudio_auth|Process Studio Author","name":"Process Studio Author","feature":"pstudio_auth","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|pstudio_cons|Process Studio Runtime","name":"Process Studio Runtime","feature":"pstudio_cons","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|pv_ugdatagenerator|Gateway","name":"Gateway","feature":"pv_ugdatagenerator","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX13230NL","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|shop_doc|Shop Documentation","name":"Shop Documentation","feature":"shop_doc","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|sla_3d_systems|Rapid Prototyping","name":"Rapid Prototyping","feature":"sla_3d_systems","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|step_ap203|STEP 203","name":"STEP 203","feature":"step_ap203","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|step_ap214|STEP 214","name":"STEP 214","feature":"step_ap214","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_kf_execute|KF Runtime","name":"KF Runtime","feature":"ug_kf_execute","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX13230NL","NX11210","NX12220","NX12225","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_library_access|Genius Library Access (obsolete)","name":"Genius Library Access (obsolete)","feature":"ug_library_access","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_post_exe|Post Processor","name":"Post Processor","feature":"ug_post_exe","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_post_kinematics|Post Kinematics for Table/Table","name":"Post Kinematics for Table/Table","feature":"ug_post_kinematics","domain":"CAM","products":[]},{"id":"CAM|ug_post_mill|Post Builder","name":"Post Builder","feature":"ug_post_mill","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_smart_models|Gateway","name":"Gateway","feature":"ug_smart_models","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_to_dxf|DXF Export","name":"DXF Export","feature":"ug_to_dxf","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_to_vericut|Vericut Export (obsolete)","name":"Vericut Export (obsolete)","feature":"ug_to_vericut","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ug_visualize|Visualize","name":"Visualize","feature":"ug_visualize","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|ugopen_menuscript|Gateway","name":"Gateway","feature":"ugopen_menuscript","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|drafting|Drafting","name":"Drafting","feature":"drafting","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|features_modeling|Features Modeling","name":"Features Modeling","feature":"features_modeling","domain":"CAM","products":["NX13450"]},{"id":"CAM|free_form_modeling|Free Form Modeling","name":"Free Form Modeling","feature":"free_form_modeling","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655"]},{"id":"CAM|geometric_tol|PMI","name":"PMI","feature":"geometric_tol","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12448","NX10211","NX10212","NX13230NL","NX13230","NX12470","NX13655"]},{"id":"CAM|nx_freeform_1|Freeform Modeling Basic","name":"Freeform Modeling Basic","feature":"nx_freeform_1","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655"]},{"id":"CAM|nx_nas_bn_basic_dsk|NX Design Simulation","name":"NX Design Simulation","feature":"nx_nas_bn_basic_dsk","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|nx_nastran_export|NX Design Simulation","name":"NX Design Simulation","feature":"nx_nastran_export","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX13230NL","NX13230","NX12470","NX13655"]},{"id":"CAM|nx_sheet_metal|NX Sheet Metal","name":"NX Sheet Metal","feature":"nx_sheet_metal","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|nx_spsd_stress|NX Design Simulation","name":"NX Design Simulation","feature":"nx_spsd_stress","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|nx_spsd_vibration|NX Design Simulation","name":"NX Design Simulation","feature":"nx_spsd_vibration","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|pcf_package_file|XPresReview Authoring","name":"XPresReview Authoring","feature":"pcf_package_file","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX13230NL","NX13230","NX12470","NX13655"]},{"id":"CAM|solid_modeling|Solid Modeling","name":"Solid Modeling","feature":"solid_modeling","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431"]},{"id":"CAM|ug_kf_checker|Knowledge Fusion Checker","name":"Knowledge Fusion Checker","feature":"ug_kf_checker","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655"]},{"id":"CAM|ug_nas_des|NX Design Simulation","name":"NX Design Simulation","feature":"ug_nas_des","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12448","NX12470","NX13655"]},{"id":"CAM|ug_web_express|Web Express","name":"Web Express","feature":"ug_web_express","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655"]},{"id":"CAM|usr_defined_features|User Defined Features","name":"User Defined Features","feature":"usr_defined_features","domain":"CAM","products":["NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX12448","NX13230NL","NX13230","NX12470","NX13655"]},{"id":"CAM|nx_flexible_pcb|Flexible PCB","name":"Flexible PCB","feature":"nx_flexible_pcb","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|nx_freeform_2|Freeform Modeling Advanced","name":"Freeform Modeling Advanced","feature":"nx_freeform_2","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX13230NL","NX13230","NX12470","NX13655"]},{"id":"CAM|nx_visual_reporting|HD3D Visual Reporting Custom Report Editing","name":"HD3D Visual Reporting Custom Report Editing","feature":"nx_visual_reporting","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX13230NL","NX13230"]},{"id":"CAM|routing_base|Routing Base","name":"Routing Base","feature":"routing_base","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|studio_analyze|Advanced Surface Analysis","name":"Advanced Surface Analysis","feature":"studio_analyze","domain":"CAM","products":["NX12455","NX10211","NX10212"]},{"id":"CAM|studio_free_form|Freeform Shape","name":"Freeform Shape","feature":"studio_free_form","domain":"CAM","products":["NX12455","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230"]},{"id":"CAM|studio_render|Static Photorealistic Rendering","name":"Static Photorealistic Rendering","feature":"studio_render","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|studio_visualize|Dynamic Rendering (Visualize Shape)","name":"Dynamic Rendering (Visualize Shape)","feature":"studio_visualize","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12470","NX13655"]},{"id":"CAM|ug_checkmate|Product Validation (Check Mate Runtime)","name":"Product Validation (Check Mate Runtime)","feature":"ug_checkmate","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX13230NL","NX13230","NX12470","NX13655"]},{"id":"CAM|nx_additive_design|Design for Additive Features and Checkers","name":"Design for Additive Features and Checkers","feature":"nx_additive_design","domain":"CAM","products":["NX13230NL","NX13230"]},{"id":"CAM|nx_polygon_modeling|Advanced Convergent Modeling","name":"Advanced Convergent Modeling","feature":"nx_polygon_modeling","domain":"CAM","products":["NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230"]},{"id":"CAM|nx_wedm_base|NX CAM Wire EDM Advanced Add-on","name":"NX CAM Wire EDM Advanced Add-on","feature":"nx_wedm_base","domain":"CAM","products":["NX11465"]},{"id":"CAM|nx_wedm_ruled|NX CAM WEDM Surface Pocketing Add-on","name":"NX CAM WEDM Surface Pocketing Add-on","feature":"nx_wedm_ruled","domain":"CAM","products":[]},{"id":"CAM|nx_wedm_extra|NX CAM WEDM Special Modules Add-on","name":"NX CAM WEDM Special Modules Add-on","feature":"nx_wedm_extra","domain":"CAM","products":[]},{"id":"CAM|nx_wedmp_db|NX CAM WEDM Posts with Database Add-on","name":"NX CAM WEDM Posts with Database Add-on","feature":"nx_wedmp_db","domain":"CAM","products":[]},{"id":"CAM|nx_wedmp_no_db|NX CAM WEDM Post without Database Add-on","name":"NX CAM WEDM Post without Database Add-on","feature":"nx_wedmp_no_db","domain":"CAM","products":[]},{"id":"CAM|nx_wedmp_4xpos|NX CAM WEDM 4 Axis Positioning Add-on","name":"NX CAM WEDM 4 Axis Positioning Add-on","feature":"nx_wedmp_4xpos","domain":"CAM","products":[]},{"id":"CAM|nx_wedm_measure|NX CAM WEDM Measuring Cycles Add-on","name":"NX CAM WEDM Measuring Cycles Add-on","feature":"nx_wedm_measure","domain":"CAM","products":[]},{"id":"CAM|gmc|Generic Motion Control","name":"Generic Motion Control","feature":"gmc","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_cam_turn_prime|Prime Turning","name":"Prime Turning","feature":"nx_cam_turn_prime","domain":"CAM","products":["NX12441","NX12443","NX12449","NX12440","NX12442","NX12455","NX12490","NX11440","NX11455","NX12448","NX11490"]},{"id":"CAM|probe|Probing Operations","name":"Probing Operations","feature":"probe","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|ug_holemaking|Holemaking, including use of FBM","name":"Holemaking, including use of FBM","feature":"ug_holemaking","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655"]},{"id":"CAM|ug_turning|Turning","name":"Turning","feature":"ug_turning","domain":"CAM","products":["NX12441","NX12443","NX12449","NX12440","NX12442","NX12455","NX12490","NX11440","NX11455","NX12448","NX11490"]},{"id":"CAM|nx_holemaking|Holemaking","name":"Holemaking","feature":"nx_holemaking","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_auto_hole_mach|Automatic Hole Machining","name":"Automatic Hole Machining","feature":"nx_auto_hole_mach","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_gfo|Generic Feature Operations","name":"Generic Feature Operations","feature":"nx_gfo","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_3d_adaptive_rough|3D Adaptive Roughing","name":"3D Adaptive Roughing","feature":"nx_3d_adaptive_rough","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|cavity_milling|Cavity Milling","name":"Cavity Milling","feature":"cavity_milling","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_cam_deburr_planar|Planar Deburring","name":"Planar Deburring","feature":"nx_cam_deburr_planar","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_cam_milling_2x|NX 2.5 Axis Milling","name":"NX 2.5 Axis Milling","feature":"nx_cam_milling_2x","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_quick_rough|2.5 Axis Quick Roughing","name":"2.5 Axis Quick Roughing","feature":"nx_quick_rough","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|planar_milling|Planar Mill","name":"Planar Mill","feature":"planar_milling","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|tol_cavity_milling|Cavity Milling","name":"Cavity Milling","feature":"tol_cavity_milling","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_plunge_mill|Plunge Milling","name":"Plunge Milling","feature":"nx_plunge_mill","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_floor_wall|Floor Wall","name":"Floor Wall","feature":"nx_floor_wall","domain":"CAM","products":["NX12443","NX12446","NX12449","NX12451","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|cam_facets|Facet Machining","name":"Facet Machining","feature":"cam_facets","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|fix_axis_surf_mill|Surface Milling - Fixed Axis,  Adaptive Milling","name":"Surface Milling - Fixed Axis,  Adaptive Milling","feature":"fix_axis_surf_mill","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|flow_cut|Flow Cut (re-machining corners, valleys)","name":"Flow Cut (re-machining corners, valleys)","feature":"flow_cut","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|nurb_output_enabler|Spline Output - general","name":"Spline Output - general","feature":"nurb_output_enabler","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|nx_cam_deburring3x|3 Axis Deburring","name":"3 Axis Deburring","feature":"nx_cam_deburring3x","domain":"CAM","products":["NX12443","NX12449","NX12451","NX12442","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|sinumerik_spline|Spline Output - Simunerik specific","name":"Spline Output - Simunerik specific","feature":"sinumerik_spline","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|nx_face_manual|Face Manual","name":"Face Manual","feature":"nx_face_manual","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX11465","NX11431"]},{"id":"CAM|nx_groove_mill|Groove Milling","name":"Groove Milling","feature":"nx_groove_mill","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX11465","NX11431"]},{"id":"CAM|nx_zlevel_profile|Z-Level Profiling","name":"Z-Level Profiling","feature":"nx_zlevel_profile","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|make_mach_suggestion|Make Machining Suggestion","name":"Make Machining Suggestion","feature":"make_mach_suggestion","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|surface_milling|Surface Milling - Fixed Axis","name":"Surface Milling - Fixed Axis","feature":"surface_milling","domain":"CAM","products":["NX12451","NX12450","NX12455","NX12490","NX13440","NX12480","NX11455","NX12460","NX11490"]},{"id":"CAM|contour_profile|Contour Profile (5-axis side cutting)","name":"Contour Profile (5-axis side cutting)","feature":"contour_profile","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|rotary_floor_finish|Rotary Floor Finish","name":"Rotary Floor Finish","feature":"rotary_floor_finish","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12455","NX12490","NX13440","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_cam_deburring4x|4 Axis Deburring","name":"4 Axis Deburring","feature":"nx_cam_deburring4x","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12455","NX12490","NX13440","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_cam_deburring5x|5 Axis Deburring","name":"5 Axis Deburring","feature":"nx_cam_deburring5x","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|nx_tilt_tool_axis|3 to 5 Axis Milling (conversion)","name":"3 to 5 Axis Milling (conversion)","feature":"nx_tilt_tool_axis","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|sequential_milling|Sequential Milling (drive/part/check)","name":"Sequential Milling (drive/part/check)","feature":"sequential_milling","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|nx_zlevel_5x|Z-Level 5 Axis","name":"Z-Level 5 Axis","feature":"nx_zlevel_5x","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|nx_barrel_wallmill|Barel Wallmilling","name":"Barel Wallmilling","feature":"nx_barrel_wallmill","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|var_axis_surf_mill|Surface Milling - Variable Axis","name":"Surface Milling - Variable Axis","feature":"var_axis_surf_mill","domain":"CAM","products":["NX12490","NX13440","NX12460","NX11490"]},{"id":"CAM|nx_cam_rotary_4x|Rotary Machining","name":"Rotary Machining","feature":"nx_cam_rotary_4x","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12455","NX12490","NX13440","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_cam_turn_mill|Turn Mill","name":"Turn Mill","feature":"nx_cam_turn_mill","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12455","NX12490","NX13440","NX11455","NX12448","NX12460","NX11490"]},{"id":"CAM|nx_multi_blade_mill|Multi-axis Blade Machining","name":"Multi-axis Blade Machining","feature":"nx_multi_blade_mill","domain":"CAM","products":["NX13440"]},{"id":"CAM|nx_cam_mpp|Machine Powered Programming","name":"Machine Powered Programming","feature":"nx_cam_mpp","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465"]},{"id":"CAM|nx_isv_vm_hmi|NC Simulation Virtual Machine (Sinumerik)","name":"NC Simulation Virtual Machine (Sinumerik)","feature":"nx_isv_vm_hmi","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12490","NX13440","NX11435","NX12448","NX12460","NX11490","NX10211","NX10212","NX12470","NX13655","NX11431"]},{"id":"CAM|sync_mgr|Synchronization Manager (multi-channel)","name":"Synchronization Manager (multi-channel)","feature":"sync_mgr","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12490","NX13440","NX11435","NX12448","NX12460","NX11490","NX12470","NX13655","NX11431"]},{"id":"CAM|ug_isv_full|NC Simulation","name":"NC Simulation","feature":"ug_isv_full","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12490","NX13440","NX11435","NX12448","NX12460","NX11490","NX10211","NX10212","NX12470","NX13655","NX11431"]},{"id":"CAM|ug_isv_sinumerik|NC Simulation Virtual Machine (Sinumerik)","name":"NC Simulation Virtual Machine (Sinumerik)","feature":"ug_isv_sinumerik","domain":"CAM","products":["NX12443","NX12449","NX12442","NX12490","NX13440","NX11435","NX12448","NX12460","NX11490","NX10211","NX10212","NX12470","NX13655","NX11431"]},{"id":"CAM|nx_fbm_execute|Feature Recognition","name":"Feature Recognition","feature":"nx_fbm_execute","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_auto_fixture|Auto Fixture","name":"Auto Fixture","feature":"nx_auto_fixture","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX10211","NX10212","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465"]},{"id":"CAM|fbm_author|Feature Based Machining Author","name":"Feature Based Machining Author","feature":"fbm_author","domain":"CAM","products":["NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_cam_met_omp_exec|On-Machine Probing Execution","name":"On-Machine Probing Execution","feature":"nx_cam_met_omp_exec","domain":"CAM","products":[]},{"id":"CAM|nx_cam_met_omp_auth|On-Machine Probing Author","name":"On-Machine Probing Author","feature":"nx_cam_met_omp_auth","domain":"CAM","products":[]},{"id":"CAM|nx_cam_met_omp_sin|OMP Siemens Cycle Package","name":"OMP Siemens Cycle Package","feature":"nx_cam_met_omp_sin","domain":"CAM","products":[]},{"id":"CAM|nx_cam_met_omp_hei|OMP Heidenhain Cycle Package","name":"OMP Heidenhain Cycle Package","feature":"nx_cam_met_omp_hei","domain":"CAM","products":[]},{"id":"CAM|ideas_integration|I-deas Embedded Client","name":"I-deas Embedded Client","feature":"ideas_integration","domain":"CAM","products":[]},{"id":"CAM|mfg_planning_lite|Teamcenter Manufacturing User","name":"Teamcenter Manufacturing User","feature":"mfg_planning_lite","domain":"CAM","products":[]},{"id":"CAM|nx_integration|NX Embedded Client","name":"NX Embedded Client","feature":"nx_integration","domain":"CAM","products":[]},{"id":"CAM|cmm_insp_exec|CMM Inspection Execution (DMIS)","name":"CMM Inspection Execution (DMIS)","feature":"cmm_insp_exec","domain":"CAM","products":["NX10212"]},{"id":"CAM|insp_programming|CMM Inspection Programming & Analysis","name":"CMM Inspection Programming & Analysis","feature":"insp_programming","domain":"CAM","products":["NX10211","NX10212"]},{"id":"CAM|am_pb_bp_mjf|NX Additive build processor for Multi-Jet Fusion Printers","name":"NX Additive build processor for Multi-Jet Fusion Printers","feature":"am_pb_bp_mjf","domain":"CAM","products":["NX12225NL","NX12225"]},{"id":"CAM|am_pb_cam_advanced|Fixed-plane (Powder Bed) Additive w/ advanced supports","name":"Fixed-plane (Powder Bed) Additive w/ advanced supports","feature":"am_pb_cam_advanced","domain":"CAM","products":["NX13230NL","NX13230"]},{"id":"CAM|am_pb_cam_basic|Fixed-plane (Powder Bed) Additive w/ basic supports","name":"Fixed-plane (Powder Bed) Additive w/ basic supports","feature":"am_pb_cam_basic","domain":"CAM","products":["NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX13230NL","NX11210","NX12220","NX12225","NX12226","NX13230"]},{"id":"CAM|am_pb_mtls_nest_3d_1|Basic NX Powder Bed Additive 2D Nesting","name":"Basic NX Powder Bed Additive 2D Nesting","feature":"am_pb_mtls_nest_3d_1","domain":"CAM","products":["NX12220NL","NX12225NL","NX13230NL","NX12220","NX12225","NX13230"]},{"id":"CAM|am_pb_mtls_nest_3d_2|Advanced NX Powder Bed Additive 3D Nesting","name":"Advanced NX Powder Bed Additive 3D Nesting","feature":"am_pb_mtls_nest_3d_2","domain":"CAM","products":["NX12220NL","NX12225NL","NX13230NL","NX12220","NX12225","NX13230"]},{"id":"CAM|am_pb_mtls_sg_1|Support Geometry - basic","name":"Support Geometry - basic","feature":"am_pb_mtls_sg_1","domain":"CAM","products":["NX11210NL","NX12220NL","NX12225NL","NX13230NL","NX11210","NX12220","NX12225","NX13230"]},{"id":"CAM|am_pb_mtls_sg_2|Support Geometry - advanced","name":"Support Geometry - advanced","feature":"am_pb_mtls_sg_2","domain":"CAM","products":["NX13230NL","NX13230"]},{"id":"CAM|am_pb_print_mark|Print Marks","name":"Print Marks","feature":"am_pb_print_mark","domain":"CAM","products":["NX12220NL","NX12225NL","NX13230NL","NX12220","NX12225","NX13230"]},{"id":"CAM|nx_3mf|3MF Import and Export","name":"3MF Import and Export","feature":"nx_3mf","domain":"CAM","products":["NX11210NL","NX12220NL","NX12225NL","NX12226NL","NX11210","NX12220","NX12225","NX12226"]},{"id":"CAM|am_pb_bp_cura|Printer Driver for Cura","name":"Printer Driver for Cura","feature":"am_pb_bp_cura","domain":"CAM","products":["NX12226NL","NX13230NL","NX12226","NX13230"]},{"id":"CAM|cam_additive_1|Planar & Rotary Additive Operations for CAM","name":"Planar & Rotary Additive Operations for CAM","feature":"cam_additive_1","domain":"CAM","products":["NX13655"]},{"id":"CAM|cam_additive_2|Freeform thinwall, buildup, coating, Tube Thinwall, Merge","name":"Freeform thinwall, buildup, coating, Tube Thinwall, Merge","feature":"cam_additive_2","domain":"CAM","products":["NX13655"]},{"id":"CAM|cam_additive_4|Tube Additive Buildup","name":"Tube Additive Buildup","feature":"cam_additive_4","domain":"CAM","products":["NX13655"]},{"id":"CAM|cam_additive_5|Gradient Freeform Buildup","name":"Gradient Freeform Buildup","feature":"cam_additive_5","domain":"CAM","products":["NX13655"]},{"id":"CAM|cam_additive_3|Post Processing for non DMG machines","name":"Post Processing for non DMG machines","feature":"cam_additive_3","domain":"CAM","products":["NX12470"]},{"id":"CAM|nx_post_config_full|Post Processor","name":"Post Processor","feature":"nx_post_config_full","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1000|NX CAM Robotics Programming","name":"NX CAM Robotics Programming","feature":"cam_robotics_1000","domain":"CAM","products":["NX30640"]},{"id":"CAM|cam_robotics_1001|NX CAM ABB Rapid Posting","name":"NX CAM ABB Rapid Posting","feature":"cam_robotics_1001","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1002|NX CAM Fanuc RJ Posting","name":"NX CAM Fanuc RJ Posting","feature":"cam_robotics_1002","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1003|NX CAM Kuka KRC Posting","name":"NX CAM Kuka KRC Posting","feature":"cam_robotics_1003","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1004|NX CAM RMR Sunimerik Posting","name":"NX CAM RMR Sunimerik Posting","feature":"cam_robotics_1004","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1005|NX CAM Yaskawa inform Posting Module","name":"NX CAM Yaskawa inform Posting Module","feature":"cam_robotics_1005","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1006|NX CAM Staubli VAL Posting","name":"NX CAM Staubli VAL Posting","feature":"cam_robotics_1006","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1007|NX CAM Nachi Slim Posting","name":"NX CAM Nachi Slim Posting","feature":"cam_robotics_1007","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1008|NX CAM Kawasaki AS Posting","name":"NX CAM Kawasaki AS Posting","feature":"cam_robotics_1008","domain":"CAM","products":[]},{"id":"CAM|cam_robotics_1009|NX CAM Universal Urscript Posting","name":"NX CAM Universal Urscript Posting","feature":"cam_robotics_1009","domain":"CAM","products":[]},{"id":"CAM|nx_cam_smks_3x|NX CAM Smart Machine Kit Solution 3-axis","name":"NX CAM Smart Machine Kit Solution 3-axis","feature":"nx_cam_smks_3x","domain":"CAM","products":["NX30708","NX30709","NX30713"]},{"id":"CAM|nx_cam_smks_4x|NX CAM Smart Machine Kit Solution 4-axis","name":"NX CAM Smart Machine Kit Solution 4-axis","feature":"nx_cam_smks_4x","domain":"CAM","products":["NX30709","NX30713"]},{"id":"CAM|nx_cam_smks_complex|NX CAM Smart Machine Kit Solution Complex","name":"NX CAM Smart Machine Kit Solution Complex","feature":"nx_cam_smks_complex","domain":"CAM","products":["NX30713"]},{"id":"CAM|nx_cam_smks_additive|NX CAM Smart Machine Kit Solution Additive","name":"NX CAM Smart Machine Kit Solution Additive","feature":"nx_cam_smks_additive","domain":"CAM","products":["NX30712"]},{"id":"CAM|nx_vsa_build|VSA Product Variation (GD&T)","name":"VSA Product Variation (GD&T)","feature":"nx_vsa_build","domain":"CAM","products":["NX10220"]},{"id":"CAM|nx_vsa_simulate|VSA Process Variation (Assembly Sequence and Constraint)","name":"VSA Process Variation (Assembly Sequence and Constraint)","feature":"nx_vsa_simulate","domain":"CAM","products":["NX10220"]},{"id":"CAM|nx_sinumerik_ca|Sinumerik Collision Avoidance","name":"Sinumerik Collision Avoidance","feature":"nx_sinumerik_ca","domain":"CAM","products":["NX13450"]},{"id":"CAM|ug_collaborate|UG Collaborate","name":"UG Collaborate","feature":"ug_collaborate","domain":"CAM","products":["NX11431"]},{"id":"CAM|nx_cam_apps_basic|Basic Apps Support","name":"Basic Apps Support","feature":"nx_cam_apps_basic","domain":"CAM","products":["NX11430","NX12441","NX12443","NX12446","NX12449","NX12451","NX12440","NX12442","NX12445","NX12450","NX12455","NX12490","NX13440","NX11435","NX11440","NX11445","NX12480","NX11455","NX12448","NX12460","NX11490","NX12470","NX13655","NX11465","NX11431","NX13450"]},{"id":"CAM|nx_copilot_tdoc|TDOC Copilot","name":"TDOC Copilot","feature":"nx_copilot_tdoc","domain":"CAM","products":[]}],"groups":[{"title":"Core CAD","options":[{"label":"Modeling","ids":["CAD|solid_modeling, features_modeling|Solid & Feature Modeling","CAM|solid_modeling|Solid Modeling"],"key":"Core CAD / Modeling"},{"label":"Drafting","ids":["CAD|drafting|Drafting","CAM|drafting|Drafting"],"key":"Core CAD / Drafting"},{"label":"Assemblies","ids":["CAD|assemblies|Assemblies","CAM|assemblies|Assemblies"],"key":"Core CAD / Assemblies"},{"label":"Advanced Assemblies","ids":["CAD|adv_assemblies|Advanced Assemblies"],"key":"Core CAD / Advanced Assemblies"},{"label":"Advanced Freeform Design","ids":["CAD|nx_freeform_2|Freeform Modeling Advanced"],"key":"Core CAD / Advanced Freeform Design"}]},{"title":"Specialized Design","options":[{"label":"Sheet Metal","ids":["CAD|nx_sheet_metal|NX Sheet Metal","CAM|nx_sheet_metal|NX Sheet Metal"],"key":"Specialized Design / Sheet Metal"},{"label":"Mold Design / Mold Wizard","ids":["CAD|ug_mold_design|Mold Wizard"],"key":"Specialized Design / Mold Design / Mold Wizard"},{"label":"Progressive Die","ids":["CAD|prog_die_wizard nx_onestep_analysis|Progressive Die Wizard"],"key":"Specialized Design / Progressive Die"},{"label":"Piping & Tubing","ids":["CAD|routing_pipetube routing_advanced|Routing Piping & Tubing"],"key":"Specialized Design / Piping & Tubing"},{"label":"Cabling","ids":["CAD|routing_cabling routing_advanced|Routing Cabling"],"key":"Specialized Design / Cabling"},{"label":"Wire Harness","ids":["CAD|routing_harness routing_advanced|Routing Harness"],"key":"Specialized Design / Wire Harness"},{"label":"HVAC","ids":["CAD|routing_hvac routing_advanced|Routing HVAC"],"key":"Specialized Design / HVAC"},{"label":"Flexible PCB","ids":["CAD|nx_flexible_pcb|Flexible PCB","CAM|nx_flexible_pcb|Flexible PCB"],"key":"Specialized Design / Flexible PCB"},{"label":"Weld Assistant","ids":["CAD|ugweld|Weld Assistant"],"key":"Specialized Design / Weld Assistant"}]},{"title":"Milling","options":[{"label":"2.5-axis Milling","ids":["CAM|nx_cam_milling_2x|NX 2.5 Axis Milling"],"key":"Milling / 2.5-axis Milling"},{"label":"3-axis Fixed-axis Surface Milling","ids":["CAM|fix_axis_surf_mill|Surface Milling - Fixed Axis,  Adaptive Milling"],"key":"Milling / 3-axis Fixed-axis Surface Milling"},{"label":"4-axis Rotary Machining","ids":["CAM|nx_cam_rotary_4x|Rotary Machining"],"key":"Milling / 4-axis Rotary Machining"},{"label":"5-axis Variable-axis Surface Milling","ids":["CAM|var_axis_surf_mill|Surface Milling - Variable Axis"],"key":"Milling / 5-axis Variable-axis Surface Milling"},{"label":"Rotary Floor Finish","ids":["CAM|rotary_floor_finish|Rotary Floor Finish"],"key":"Milling / Rotary Floor Finish"},{"label":"Multi-axis Blade Machining","ids":["CAM|nx_multi_blade_mill|Multi-axis Blade Machining"],"key":"Milling / Multi-axis Blade Machining"},{"label":"5-axis Deburring","ids":["CAM|nx_cam_deburring5x|5 Axis Deburring"],"key":"Milling / 5-axis Deburring"}]},{"title":"Turning","options":[{"label":"Turning","ids":["CAM|ug_turning|Turning"],"key":"Turning / Turning"},{"label":"Mill-Turn","ids":["CAM|nx_cam_turn_mill|Turn Mill"],"key":"Turning / Mill-Turn"},{"label":"Prime Turning","ids":["CAM|nx_cam_turn_prime|Prime Turning"],"key":"Turning / Prime Turning"}]},{"title":"Specialized Manufacturing","options":[{"label":"Wire EDM Advanced","ids":["CAM|nx_wedm_base|NX CAM Wire EDM Advanced Add-on"],"key":"Specialized Manufacturing / Wire EDM Advanced"},{"label":"Additive — Powder Bed Basic","ids":["CAM|am_pb_cam_basic|Fixed-plane (Powder Bed) Additive w/ basic supports"],"key":"Specialized Manufacturing / Additive — Powder Bed Basic"},{"label":"Additive — Powder Bed Advanced","ids":["CAM|am_pb_cam_advanced|Fixed-plane (Powder Bed) Additive w/ advanced supports"],"key":"Specialized Manufacturing / Additive — Powder Bed Advanced"},{"label":"Robotics Programming","ids":["CAM|cam_robotics_1000|NX CAM Robotics Programming"],"key":"Specialized Manufacturing / Robotics Programming"}]},{"title":"Inspection & Simulation","options":[{"label":"CMM Inspection Programming","ids":["CAM|insp_programming|CMM Inspection Programming & Analysis"],"key":"Inspection & Simulation / CMM Inspection Programming"},{"label":"CMM Inspection Execution","ids":["CAM|cmm_insp_exec|CMM Inspection Execution (DMIS)"],"key":"Inspection & Simulation / CMM Inspection Execution"},{"label":"CAM Probing Operations","ids":["CAM|probe|Probing Operations"],"key":"Inspection & Simulation / CAM Probing Operations"},{"label":"On-machine Probing Author","ids":["CAM|nx_cam_met_omp_auth|On-Machine Probing Author"],"key":"Inspection & Simulation / On-machine Probing Author"},{"label":"On-machine Probing Execution","ids":["CAM|nx_cam_met_omp_exec|On-Machine Probing Execution"],"key":"Inspection & Simulation / On-machine Probing Execution"},{"label":"NC Simulation","ids":["CAM|ug_isv_full|NC Simulation"],"key":"Inspection & Simulation / NC Simulation"}]},{"title":"Manufacturing Utilities","options":[{"label":"Standard Post Processor","ids":["CAM|ug_post_exe|Post Processor"],"key":"Manufacturing Utilities / Standard Post Processor"},{"label":"Post Builder","ids":["CAM|ug_post_mill|Post Builder"],"key":"Manufacturing Utilities / Post Builder"},{"label":"Post Configurator — Advanced","ids":["CAM|nx_post_config_adv|Post Configurator - Advanced"],"key":"Manufacturing Utilities / Post Configurator — Advanced"},{"label":"Post Configurator — Full","ids":["CAM|nx_post_config_full|Post Processor"],"key":"Manufacturing Utilities / Post Configurator — Full"},{"label":"NC Data Management","ids":[],"key":"Manufacturing Utilities / NC Data Management"}]}]};
+const byId=Object.fromEntries(DATA.features.map(f=>[f.id,f]));
+const options=DATA.groups.flatMap((g,i)=>g.options.map((o,j)=>({...o,key:i+':'+j})));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let currentText='';
+function matches(p,o){return o.ids.some(id=>byId[id]&&byId[id].products.includes(p));}
+function optimize(req,candidates){
+  if(!candidates.length)return [];
+  const covers=arr=>req.filter(o=>arr.some(p=>matches(p,o))).length;
+  // Compare combinations of 1-3 products, prioritizing complete coverage and fewer products.
+  let best=[],bestCovered=-1;
+  for(let k=1;k<=Math.min(3,candidates.length);k++){
+    let full=null;
+    const visit=(start,arr)=>{
+      if(arr.length===k){const n=covers(arr);if(n===req.length){if(!full)full=arr.slice();}else if(n>bestCovered){bestCovered=n;best=arr.slice();}return;}
+      for(let i=start;i<=candidates.length-(k-arr.length);i++){
+        if(full)return;arr.push(candidates[i]);visit(i+1,arr);arr.pop();
+      }
+    };
+    visit(0,[]);
+    if(full)return full;
   }
-};
-
-
-// PACKAGE COMMAND COMPARISON
-
-const packageFeatures = {
-
-  "NX12445": [
-    "Solid Modeling",
-    "Feature Modeling",
-    "Synchronous Technology",
-    "Drafting",
-    "Assemblies",
-    "Freeform Modeling Basic",
-    "NX Sheet Metal",
-    "CAM Base",
-    "Post Processor",
-    "Post Kinematics",
-    "Post Builder",
-    "Post Configurator Advanced"
-  ],
-
-  "NX12446": [
-    "Solid Modeling",
-    "Feature Modeling",
-    "Synchronous Technology",
-    "Drafting",
-    "Assemblies",
-    "Freeform Modeling Basic",
-    "NX Sheet Metal",
-    "CAM Base",
-    "Post Processor",
-    "Post Kinematics",
-    "Post Builder",
-    "Post Configurator Advanced"
-  ],
-
-  "NX12450": [
-    "Solid Modeling",
-    "Feature Modeling",
-    "Synchronous Technology",
-    "Drafting",
-    "Assemblies",
-    "Freeform Modeling Basic",
-    "Freeform Modeling Advanced",
-    "NX Sheet Metal",
-    "CAM Base",
-    "Post Processor",
-    "Post Kinematics",
-    "Post Builder",
-    "Post Configurator Advanced"
-  ],
-
-  "NX12451": [
-    "Solid Modeling",
-    "Feature Modeling",
-    "Synchronous Technology",
-    "Drafting",
-    "Assemblies",
-    "Freeform Modeling Basic",
-    "Freeform Modeling Advanced",
-    "NX Sheet Metal",
-    "CAM Base",
-    "Post Processor",
-    "Post Kinematics",
-    "Post Builder",
-    "Post Configurator Advanced"
-  ],
-
-  "NX12490": [
-    "Solid Modeling",
-    "Feature Modeling",
-    "Synchronous Technology",
-    "Drafting",
-    "Assemblies",
-    "Freeform Modeling Basic",
-    "Freeform Modeling Advanced",
-    "NX Sheet Metal",
-    "CAM Base",
-    "Post Processor",
-    "Post Kinematics",
-    "Post Builder",
-    "Post Configurator Advanced"
-  ]
-};
-
-
-// SELECTION FUNCTIONS
-
-function selected(name) {
-  return document.querySelector(
-    `input[name="${name}"]:checked`
-  ).value;
+  // Cover the remaining requirements with additional products, then remove redundant products.
+  let picked=best.slice();
+  while(covers(picked)<req.length){
+    const remaining=candidates.filter(p=>!picked.includes(p));
+    remaining.sort((a,b)=>req.filter(o=>matches(b,o)&&!picked.some(p=>matches(p,o))).length-req.filter(o=>matches(a,o)&&!picked.some(p=>matches(p,o))).length);
+    if(!remaining.length||!req.some(o=>matches(remaining[0],o)&&!picked.some(p=>matches(p,o))))break;
+    picked.push(remaining[0]);
+  }
+  for(let i=picked.length-1;i>=0;i--)if(covers(picked.filter((_,j)=>j!==i))===covers(picked))picked.splice(i,1);
+  return picked;
 }
-
-function addProduct(list, product) {
-  if (!list.some(p => p.code === product.code)) {
-    list.push(product);
+function render(){
+  const req=options.filter(o=>document.querySelector('input[data-key="'+o.key+'"]')?.checked);
+  const license=document.querySelector('input[name="license"]:checked').value;
+  const result=document.getElementById('results');
+  if(!req.length){document.getElementById('count').textContent='0 suggestions';result.innerHTML='<div class="note">Select the customer requirements above. Recommended product codes will appear automatically here.</div>';currentText='';return;}
+  const candidates=Object.keys(DATA.products).filter(p=>
+    (license==='Not specified'||DATA.products[p].license==='Not explicitly stated'||DATA.products[p].license===license)&&req.some(o=>matches(p,o)));
+  const picked=optimize(req,candidates);
+  const covered=req.filter(o=>picked.some(p=>matches(p,o)));
+  const gaps=req.filter(o=>!picked.some(p=>matches(p,o)));
+  document.getElementById('count').textContent=picked.length+' '+(picked.length===1?'suggestion':'suggestions');
+  let html='';
+  for(const p of picked){
+    const prod=DATA.products[p], hits=req.filter(o=>matches(p,o));
+    html+='<div class="product"><span class="tag">RECOMMENDED PRODUCT</span><h3>'+esc(prod.name)+'</h3><div class="code">'+esc(p)+'</div><div class="description">Covers: '+hits.map(o=>esc(o.label)).join(', ')+'</div><div class="coverage">License type: '+esc(prod.license)+'</div></div>';
   }
+  if(!picked.length)html+='<div class="warning">No confirmed product match for the selected requirements.</div>';
+  html+='<div class="note"><strong>Feature coverage: '+covered.length+' / '+req.length+' requirements</strong>';
+  for(const o of req){
+    const ps=picked.filter(p=>matches(p,o));
+    const f=[...new Set(o.ids.map(id=>byId[id]).filter(Boolean).filter(x=>ps.some(p=>x.products.includes(p))).map(x=>x.feature))];
+    html+='<div class="feature-row"><strong>'+esc(o.label)+'</strong> — '+(ps.length?esc(ps.join(', ')):'<span class="gap">Not confirmed</span>')+(f.length?'<div>'+esc(f.join(' / '))+'</div>':'')+'</div>';
+  }
+  html+='</div>';
+  if(gaps.length)html+='<div class="warning"><strong>Unverified / unmatched:</strong> '+gaps.map(o=>esc(o.label)).join(', ')+'. Do not assume these capabilities are licensed.</div>';
+  const unknown=picked.filter(p=>DATA.products[p].license==='Not explicitly stated');
+  if(license!=='Not specified'&&unknown.length)html+='<div class="warning">The selected '+esc(license)+' license type is not confirmed for '+esc(unknown.join(', '))+'.</div>';
+  const overlaps=req.filter(o=>picked.filter(p=>matches(p,o)).length>1);
+  if(overlaps.length)html+='<div class="note">Package entitlement overlap: '+overlaps.map(o=>esc(o.label)).join(', ')+'. No separate license has been added solely for these already-covered modules.</div>';
+  html+='<div class="note"><strong>Verification:</strong> The feature matrix is NX 2512, while this selector is labeled NX 2606. Confirm current entitlements, prerequisites, license types and commercial availability before quoting. Package count is minimized where possible; pricing is not assessed.</div>';
+  result.innerHTML=html;
+  currentText='BINTECH – NX PRODUCT RECOMMENDATION\n\n'+picked.map(p=>p+' — '+DATA.products[p].name).join('\n')+'\n\nCoverage: '+covered.length+'/'+req.length+'\nUnverified: '+(gaps.map(o=>o.label).join(', ')||'None in source feature coverage')+'\nNX 2606 licensing requires verification.';
 }
-
-
-// RECOMMENDATION ENGINE
-
-function render() {
-
-  const cad = selected("cad");
-  const cam = selected("cam");
-  const mold = selected("mold");
-  const license = selected("license");
-  const post = selected("post");
-  const wizard = selected("wizard");
-
-  let recommendations = [];
-  let warnings = [];
-
-  let selectedCAMPackage = null;
-
-  // 1. CAM PACKAGE SELECTION
-
-  if (cam === "2.5") {
-
-    selectedCAMPackage =
-      license === "nl" ? "NX12446" : "NX12445";
-
-    addProduct(
-      recommendations,
-      license === "nl" ? products.cam25NL : products.cam25
-    );
-  }
-
-  if (cam === "3") {
-
-    selectedCAMPackage =
-      license === "nl" ? "NX12451" : "NX12450";
-
-    addProduct(
-      recommendations,
-      license === "nl" ? products.cam3NL : products.cam3
-    );
-  }
-
-  if (cam === "total") {
-
-    selectedCAMPackage = "NX12490";
-    addProduct(recommendations, products.total);
-  }
-
-
-  // 2. CAD PACKAGE COMPARISON
-
-  if (cam === "none") {
-
-    if (cad === "basic") {
-
-      if (license === "nl") {
-        addProduct(recommendations, products.standardNL);
-      }
-      else if (license === "floating") {
-        addProduct(recommendations, products.standardFL);
-      }
-      else {
-        addProduct(recommendations, {
-          ...products.standardNL,
-          code: "NX91100 / NX91110"
-        });
-      }
-    }
-
-    if (cad === "advanced") {
-      addProduct(recommendations, products.advanced);
-    }
-
-    if (cad === "premium") {
-      addProduct(recommendations, products.premium);
-    }
-
-  } else {
-
-    const included = packageFeatures[selectedCAMPackage] || [];
-
-    const basicCommands = [
-      "Solid Modeling",
-      "Feature Modeling",
-      "Synchronous Technology",
-      "Drafting",
-      "Assemblies",
-      "Freeform Modeling Basic",
-      "NX Sheet Metal"
-    ];
-
-    const basicCovered = basicCommands.every(
-      command => included.includes(command)
-    );
-
-    if (!basicCovered) {
-      warnings.push(
-        "The selected CAM package does not confirm all required core CAD commands. Verify an additional CAD license."
-      );
-    }
-
-    if (
-      cad === "advanced" &&
-      !included.includes("Freeform Modeling Advanced")
-    ) {
-      addProduct(recommendations, products.advanced);
-
-      warnings.push(
-        "Check remaining Advanced CAD features and entitlements before adding a separate license."
-      );
-    }
-
-    if (cad === "premium") {
-      addProduct(recommendations, products.premium);
-
-      warnings.push(
-        "Verify NX Design Premium command coverage before quotation."
-      );
-    }
-  }
-
-
-  // 3. MOLD DESIGN
-
-  if (mold === "yes") {
-    addProduct(recommendations, products.mold);
-  }
-
-
-  // 4. POSTPROCESSOR COMPARISON
-
-  if (post !== "none") {
-
-    if (!selectedCAMPackage) {
-
-      warnings.push(
-        "A Postprocessor requirement was selected, but no CAM package was selected. Evaluate the appropriate CAM package first."
-      );
-
-    } else {
-
-      const included = packageFeatures[selectedCAMPackage];
-
-      if (post === "standard") {
-
-        if (
-          included.includes("Post Processor") &&
-          included.includes("Post Builder")
-        ) {
-          warnings.push(
-            "Standard Post Processor and Post Builder are listed in the selected CAM package. No duplicate Postprocessor product is recommended."
-          );
-        }
-      }
-
-      if (post === "advanced") {
-
-        if (included.includes("Post Configurator Advanced")) {
-          warnings.push(
-            "Post Configurator Advanced (nx_post_config_adv) is listed in the selected CAM package. No duplicate product is recommended."
-          );
-        }
-      }
-
-      if (post === "full") {
-
-        warnings.push(
-          "NX CAM Post Configurator Full (nx_post_config_full) is listed separately in the workbook. Confirm its product code and entitlement with Siemens."
-        );
-      }
-    }
-  }
-
-
-  // 5. MOLD WIZARD
-
-  if (wizard === "yes") {
-
-    addProduct(recommendations, products.wizard);
-
-    warnings.push(
-      "Verify whether NX Mold Wizard NX30200 is a separate required entitlement or already covered by NX93200. Avoid duplicate licensing."
-    );
-  }
-
-
-  // 6. DISPLAY RESULTS
-
-  const result = document.getElementById("results");
-
-  document.getElementById("count").textContent =
-    recommendations.length +
-    (recommendations.length === 1
-      ? " suggestion"
-      : " suggestions");
-
-  result.innerHTML = "";
-
-  if (recommendations.length === 0) {
-    result.innerHTML =
-      '<div class="warning">No product recommendation could be generated. Please review your selections.</div>';
-  }
-
-  recommendations.forEach(product => {
-
-    result.innerHTML += `
-      <div class="product">
-        <span class="tag">RECOMMENDED PRODUCT</span>
-        <h3>${product.name}</h3>
-        <div class="code">${product.code}</div>
-        <div class="description">${product.description}</div>
-      </div>
-    `;
-
-  });
-
-  warnings.forEach(warning => {
-
-    result.innerHTML += `
-      <div class="warning">
-        <strong>Verification:</strong><br>
-        ${warning}
-      </div>
-    `;
-
-  });
-
-  result.innerHTML += `
-    <div class="note">
-      <strong>Preferred license:</strong>
-      ${license === "nl" ? "Node Locked" :
-        license === "floating" ? "Floating" : "Not specified"}
-      <br><br>
-      Final product selection is subject to confirmation of Siemens license entitlements, package dependencies and availability.
-    </div>
-  `;
-
-}
-
-
-// COPY RECOMMENDATION
-
-function copyRecommendation() {
-
-  const text = document.getElementById("results").innerText;
-
-  navigator.clipboard.writeText(
-    "BINTECH – NX PRODUCT RECOMMENDATION\n\n" + text
-  ).then(() => {
-    alert("Recommendation copied successfully.");
-  }).catch(() => {
-    alert("Copy unavailable. Please copy the result manually.");
-  });
-
-}
-
-
-// RESET SELECTION
-
-function resetSelection() {
-  document.getElementById("selector").reset();
-  render();
-}
-
-
-// AUTOMATIC UPDATE
-
-document.getElementById("selector")
-  .addEventListener("change", render);
-
+function copyRecommendation(){if(!currentText){alert('Select a requirement first.');return;}navigator.clipboard.writeText(currentText).then(()=>alert('Recommendation copied successfully.')).catch(()=>prompt('Copy recommendation:',currentText));}
+function resetSelection(){document.getElementById('selector').reset();render();}
+document.getElementById('selector').addEventListener('change',render);
 render();
-
-</script>
-
-</body>
-</html>
+</script></body></html>
